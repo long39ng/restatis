@@ -33,7 +33,7 @@ genesis_api <- function(path) {
 
 print.genesis_api <- function(x, ...) {
   cat("<GENESIS ", x$path, ">\n", sep = "")
-  str(x$content)
+  utils::str(x$content)
   invisible(x)
 }
 

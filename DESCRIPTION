@@ -1,10 +1,10 @@
 Package: restatis
-Title: What the Package Does (One Line, Title Case)
+Title: RESTful API Wrapper for Accessing Data from the Federal Statistical Office of Germany (Destatis)
 Version: 0.0.0.9000
 Authors@R: 
     person("Long", "Nguyen", , "long.nguyen@uni-bielefeld.de", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-8878-7386"))
-Description: What the package does (one paragraph).
+Description: Enables access to data from the Federal Statistical Office of Germany (Destatis – <https://www-genesis.destatis.de/>) via their RESTful web service interface.
 License: MIT + file LICENSE
 Suggests: 
     testthat (>= 3.0.0)

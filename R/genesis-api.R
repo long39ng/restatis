@@ -52,7 +52,6 @@ print.genesis_api <- function(x, ...) {
     }
   )
 
-
   invisible(x)
 }
 

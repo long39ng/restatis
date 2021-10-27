@@ -11,21 +11,14 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/restatis)](https://CRAN.R-project.org/package=restatis)
 <!-- badges: end -->
 
-The goal of restatis is to …
+{restatis} is a wrapper around the RESTful API that provides access to
+data from the [Federal Statistical Office of Germany
+(Destatis)](https://www-genesis.destatis.de/).
 
 ## Installation
 
-You can install the development version of restatis like so:
+You can install the development version of {restatis} from GitHub:
 
 ``` r
 remotes::install_github("long39ng/restatis")
-```
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(restatis)
-## basic example code
 ```

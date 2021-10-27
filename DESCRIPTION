@@ -15,5 +15,8 @@ RoxygenNote: 7.1.2
 URL: https://github.com/long39ng/restatis
 BugReports: https://github.com/long39ng/restatis/issues
 Imports: 
+    askpass,
+    httr,
     jsonlite,
-    httr
+    keyring,
+    purrr

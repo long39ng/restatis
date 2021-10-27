@@ -6,8 +6,8 @@
 set_login_data <- function() {
   username <- askpass::askpass("Username: ")
 
-  while (length(username) == 0L) {
-    username <- askpass::askpass("Please enter a non-empty username: ")
+  if (is.null(username)) {
+    stop("Entry cancelled/empty username", call. = FALSE)
   }
 
   unlock_keyring()

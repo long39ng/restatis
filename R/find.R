@@ -30,8 +30,6 @@ find_data_ <- function(term,
   check_pagelength(pagelength)
   check_language(language)
 
-  login_data <- retrieve_login_data()
-
   query <- list(
     term = term,
     category = category,
@@ -43,7 +41,7 @@ find_data_ <- function(term,
 
   structure(
     res$content[[categories[category]]] %||% list(),
-    class = c("genesis_find", "data.frame"),
+    class = c("genesis_df", "data.frame"),
     url = res$response$url
   )
 }

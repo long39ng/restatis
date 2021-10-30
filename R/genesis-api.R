@@ -32,8 +32,8 @@ genesis_api <- function(path, query = NULL) {
 }
 
 #' @export
-print.genesis_helloworld <- function(x, ...) {
-  cat("<GENESIS ", x$path, ">\n", sep = "")
+print.genesis_meta <- function(x, ...) {
+  cat("<GENESIS ", trim_url(x$response$url), ">\n", sep = "")
 
   Map(
     function(name, content) {
@@ -47,12 +47,12 @@ print.genesis_helloworld <- function(x, ...) {
 }
 
 #' @export
-print.genesis_find <- function(x, ...) {
-  cat("<GENESIS ", sub(paste0("^", base_url), "", attr(x, "url")), ">\n", sep = "")
+print.genesis_df <- function(x, ...) {
+  cat("<GENESIS ", trim_url(attr(x, "url")), ">\n", sep = "")
   class(x) <- "data.frame"
   print(x)
 }
 
 hello_genesis <- function() {
-  structure(genesis_api("helloworld/whoami"), class = "genesis_helloworld")
+  structure(genesis_api("helloworld/whoami"), class = "genesis_meta")
 }

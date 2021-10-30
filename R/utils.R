@@ -2,8 +2,8 @@
   if (is.null(x)) y else x
 }
 
-unlock_keyring <- function() {
-  if (keyring::keyring_is_locked()) keyring::keyring_unlock()
+trim_url <- function(url) {
+  sub(paste0("^", base_url), "", url)
 }
 
 check_str_len1 <- function(x) {

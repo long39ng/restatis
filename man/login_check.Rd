@@ -9,3 +9,6 @@ login_check()
 \description{
 Tests if the login with the saved username and password was sucessful
 }
+\seealso{
+\code{\link{set_login_data}}
+}

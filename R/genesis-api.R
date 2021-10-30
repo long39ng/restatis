@@ -31,11 +31,6 @@ genesis_api <- function(path, query = NULL) {
   )
 }
 
-#' Printing parsed GENESIS API request for `HelloWorld` methods
-#'
-#' @param x Object of class `genesis_helloworld`
-#' @param ... Optional arguments to print methods
-#'
 #' @export
 print.genesis_helloworld <- function(x, ...) {
   cat("<GENESIS ", x$path, ">\n", sep = "")
@@ -51,11 +46,6 @@ print.genesis_helloworld <- function(x, ...) {
   invisible(x)
 }
 
-#' Printing parsed GENESIS API request for `Find` methods
-#'
-#' @param x Object of class `genesis_find`
-#' @param ... Optional arguments to print methods
-#'
 #' @export
 print.genesis_find <- function(x, ...) {
   cat("<GENESIS ", sub(paste0("^", base_url), "", attr(x, "url")), ">\n", sep = "")
@@ -63,7 +53,6 @@ print.genesis_find <- function(x, ...) {
   print(x)
 }
 
-#' whoami
 hello_genesis <- function() {
   structure(genesis_api("helloworld/whoami"), class = "genesis_helloworld")
 }

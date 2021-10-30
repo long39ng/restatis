@@ -1,6 +1,11 @@
 #' Set your GENESIS username and password
 #'
-#' Sets the username and password used to log in to www-genesis.destatis.de
+#' Sets the username and password used to log in to www-genesis.destatis.de.
+#'
+#' Login data are stored with the [keyring][keyring-package] package. Use [keyring::key_list()]
+#' to get an overview of the stored credentials.
+#'
+#' @seealso [`login_check`]
 #'
 #' @export
 set_login_data <- function() {
@@ -17,6 +22,8 @@ set_login_data <- function() {
 #' Login check
 #'
 #' Tests if the login with the saved username and password was sucessful
+#'
+#' @seealso [`set_login_data`]
 #'
 #' @export
 login_check <- function() {

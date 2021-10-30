@@ -7,5 +7,12 @@
 set_login_data()
 }
 \description{
-Sets the username and password used to log in to www-genesis.destatis.de
+Sets the username and password used to log in to www-genesis.destatis.de.
+}
+\details{
+Login data are stored with the \link[=keyring-package]{keyring} package. Use \code{\link[keyring:key_get]{keyring::key_list()}}
+to get an overview of the stored credentials.
+}
+\seealso{
+\code{\link{login_check}}
 }

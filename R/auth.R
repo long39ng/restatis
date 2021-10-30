@@ -22,24 +22,16 @@ set_login_data <- function() {
 login_check <- function() {
   login_data <- retrieve_login_data()
 
-  if (is.null(login_data$username)) {
-    stop(call. = FALSE, paste0(
-      "GENESIS login data not found.\n",
-      "Run `set_login_data()` to save your username and password."
-    ))
-  }
-
   query <- list(
     username = login_data$username,
     password = login_data$password,
     language = "en"
   )
 
-  genesis_api("helloworld/logincheck", query)
-}
-
-unlock_keyring <- function() {
-  if (keyring::keyring_is_locked()) keyring::keyring_unlock()
+  structure(
+    genesis_api("helloworld/logincheck", query),
+    class = "genesis_helloworld"
+  )
 }
 
 retrieve_login_data <- function() {
@@ -47,12 +39,14 @@ retrieve_login_data <- function() {
   available_usernames <- keyring::key_list("destatis")[["username"]]
 
   if (length(available_usernames) == 0L) {
-    username <- NULL
-    password <- NULL
-  } else {
-    username <- available_usernames[[length(available_usernames)]]
-    password <- keyring::key_get("destatis", username)
+    stop(call. = FALSE, paste0(
+      "GENESIS login data not found.\n",
+      "Run `set_login_data()` to save your username and password."
+    ))
   }
+
+  username <- available_usernames[[length(available_usernames)]]
+  password <- keyring::key_get("destatis", username)
 
   list(username = username, password = password)
 }

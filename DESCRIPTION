@@ -18,5 +18,4 @@ Imports:
     askpass,
     httr,
     jsonlite,
-    keyring,
-    purrr
+    keyring

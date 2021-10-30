@@ -1,22 +1,21 @@
+base_url <- "https://www-genesis.destatis.de/genesisWS/rest/2020/"
+
 genesis_api <- function(path, query = NULL) {
   ua <- httr::user_agent("https://github.com/long39ng/restatis")
 
-  url <- paste0("https://www-genesis.destatis.de/genesisWS/rest/2020/", path)
+  url <- paste0(base_url, path)
 
   resp <- httr::GET(url, ua, query = query)
   if (httr::http_type(resp) != "application/json") {
     stop("API did not return json", call. = FALSE)
   }
 
-  parsed <- jsonlite::fromJSON(
-    httr::content(resp, "text"),
-    simplifyVector = FALSE
-  )
+  parsed <- jsonlite::fromJSON(httr::content(resp, "text"))
 
   if (httr::http_error(resp)) {
     stop(
       sprintf(
-        "GENESIS API request failed [%s]\n> %s",
+        "GENESIS API request failed [%s]\n%s",
         httr::status_code(resp),
         parsed$Content
       ),
@@ -24,39 +23,47 @@ genesis_api <- function(path, query = NULL) {
     )
   }
 
-  structure(
-    list(
-      content = parsed,
-      path = path,
-      query = query,
-      response = resp
-    ),
-    class = "genesis_api"
+  list(
+    content = parsed,
+    path = path,
+    query = query,
+    response = resp
   )
 }
 
-#' Printing parsed GENESIS API request
+#' Printing parsed GENESIS API request for `HelloWorld` methods
 #'
-#' @param x Object of class `genesis_api`
+#' @param x Object of class `genesis_helloworld`
 #' @param ... Optional arguments to print methods
 #'
 #' @export
-print.genesis_api <- function(x, ...) {
-  cat("<GENESIS ", x$path, ">\n\n", sep = "")
+print.genesis_helloworld <- function(x, ...) {
+  cat("<GENESIS ", x$path, ">\n", sep = "")
 
-  purrr::walk2(
-    names(x$content),
-    x$content,
+  Map(
     function(name, content) {
-      cat(name, ":\n", content, "\n\n", sep = "")
-    }
+      cat(sprintf("%-16s", name), content, "\n", sep = "")
+    },
+    names(x$content),
+    x$content
   )
 
   invisible(x)
 }
 
-#' whoami
-hello_genesis <- function() {
-  genesis_api("helloworld/whoami")
+#' Printing parsed GENESIS API request for `Find` methods
+#'
+#' @param x Object of class `genesis_find`
+#' @param ... Optional arguments to print methods
+#'
+#' @export
+print.genesis_find <- function(x, ...) {
+  cat("<GENESIS ", sub(paste0("^", base_url), "", attr(x, "url")), ">\n", sep = "")
+  class(x) <- "data.frame"
+  print(x)
 }
 
+#' whoami
+hello_genesis <- function() {
+  structure(genesis_api("helloworld/whoami"), class = "genesis_helloworld")
+}

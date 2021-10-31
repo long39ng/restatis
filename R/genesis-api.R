@@ -35,11 +35,17 @@ genesis_api <- function(path, query = NULL) {
 print.genesis_meta <- function(x, ...) {
   cat("<GENESIS ", trim_url(x$response$url), ">\n", sep = "")
 
+  field_names <- names(x$content)
+
   Map(
     function(name, content) {
-      cat(sprintf("%-16s", name), content, "\n", sep = "")
+      cat(
+        sprintf(paste0("%-", max(nchar(field_names)) + 1, "s"), name),
+        content, "\n",
+        sep = ""
+      )
     },
-    names(x$content),
+    field_names,
     x$content
   )
 

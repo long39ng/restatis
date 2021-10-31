@@ -23,6 +23,8 @@ find_data_ <- function(term,
                        language = "en") {
   check_str_len1(term)
 
+  creds <- retrieve_login_data()
+
   categories <- c("Tables", "Statistics", "Variables", "Cubes", "Timeseries")
   names(categories) <- c("tables", "statistics", "variables", "cubes", "time-series")
 
@@ -31,6 +33,8 @@ find_data_ <- function(term,
   check_language(language)
 
   query <- list(
+    username = creds$username,
+    password = creds$password,
     term = term,
     category = category,
     pagelength = pagelength,

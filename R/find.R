@@ -9,7 +9,7 @@
 #' @param pagelength Maximum number of results delivered
 #' @param language Messages and data descriptions in German (de) or English (en)?
 #'
-#' @return A `data.frame` with an `url` attribute containing the URL of the API request
+#' @return A `data.frame` (or `tbl_df` if [tibble][tibble-package] is installed)
 #' @export
 #'
 #' @examples
@@ -18,9 +18,9 @@
 #' find_tables("Abfall", language = "de")
 #' }
 find_ <- function(term,
-                       category = c("tables", "statistics", "variables", "cubes", "time-series"),
-                       pagelength = 100,
-                       language = "en") {
+                  category = c("tables", "statistics", "variables", "cubes", "time-series"),
+                  pagelength = 100,
+                  language = "en") {
   check_str_len1(term)
 
   creds <- retrieve_login_data()
@@ -43,13 +43,7 @@ find_ <- function(term,
 
   res <- genesis_api("find/find", query)
 
-  ret <- res$content[[categories[category]]] %||% data.frame()
-
-  if (requireNamespace("tibble", quietly = TRUE)) {
-    ret <- tibble::as_tibble(ret)
-  }
-
-  make_genesis_df(ret, res$response$url)
+  make_df(res$content[[categories[category]]])
 }
 
 #' @inheritDotParams find_

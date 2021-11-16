@@ -43,7 +43,7 @@ find_timeseries(...)
   }}
 }
 \value{
-A \code{data.frame} with an \code{url} attribute containing the URL of the API request
+A \code{data.frame} (or \code{tbl_df} if \link[=tibble-package]{tibble} is installed)
 }
 \description{
 Retrieve lists of objects for a search term

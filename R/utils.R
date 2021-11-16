@@ -10,11 +10,6 @@ unlock_keyring <- function() {
   if (keyring::keyring_is_locked()) keyring::keyring_unlock()
 }
 
-trim_url <- function(url) {
-  url <- sub(base_url, "", url, fixed = TRUE)
-  sub("password=([^&]+)", "password=***", url)
-}
-
 check_str_len1 <- function(x) {
   nm <- deparse(substitute(x))
 
@@ -31,10 +26,37 @@ check_language <- function(language) {
   stopifnot(language %in% c("de", "en"))
 }
 
-make_genesis_df <- function(x, url) {
-  attributes(x) <- c(attributes(x), list(
-    class = c("genesis_df", class(x)),
-    url = url
-  ))
-  x
+trim_url <- function(url) {
+  url <- sub(base_url, "", url, fixed = TRUE)
+  sub("username=([^&]+)&password=([^&]+)", "username=***&password=***", url)
+}
+
+make_df <- function(resp_df, url) {
+  ret <- resp_df %||% data.frame()
+
+  if (requireNamespace("tibble", quietly = TRUE)) {
+    tibble::as_tibble(ret)
+  } else {
+    ret
+  }
+}
+
+print_status <- function(x) {
+  cat("<GENESIS ", trim_url(x$response$url), ">\n", sep = "")
+
+  field_names <- names(x$content)
+
+  Map(
+    function(name, content) {
+      cat(
+        sprintf(paste0("%-", max(nchar(field_names)) + 1, "s"), name),
+        content, "\n",
+        sep = ""
+      )
+    },
+    field_names,
+    x$content
+  )
+
+  invisible(x)
 }

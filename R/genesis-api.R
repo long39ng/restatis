@@ -31,34 +31,6 @@ genesis_api <- function(path, query = NULL) {
   )
 }
 
-#' @export
-print.genesis_status <- function(x, ...) {
-  cat("<GENESIS ", trim_url(x$response$url), ">\n", sep = "")
-
-  field_names <- names(x$content)
-
-  Map(
-    function(name, content) {
-      cat(
-        sprintf(paste0("%-", max(nchar(field_names)) + 1, "s"), name),
-        content, "\n",
-        sep = ""
-      )
-    },
-    field_names,
-    x$content
-  )
-
-  invisible(x)
-}
-
-#' @export
-print.genesis_df <- function(x, ...) {
-  cat("<GENESIS ", trim_url(attr(x, "url")), ">\n", sep = "")
-  class(x) <- setdiff(class(x), "genesis_df")
-  print(x)
-}
-
 hello_genesis <- function() {
-  structure(genesis_api("helloworld/whoami"), class = "genesis_status")
+  print_status(genesis_api("helloworld/whoami"))
 }

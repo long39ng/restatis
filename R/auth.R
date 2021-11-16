@@ -35,10 +35,7 @@ login_check <- function() {
     language = "en"
   )
 
-  structure(
-    genesis_api("helloworld/logincheck", query),
-    class = "genesis_status"
-  )
+  print_status(genesis_api("helloworld/logincheck", query))
 }
 
 retrieve_login_data <- function() {

@@ -2,6 +2,10 @@
   if (is.null(x)) y else x
 }
 
+discard_null <- function(x) {
+  x[!sapply(x, is.null)]
+}
+
 unlock_keyring <- function() {
   if (keyring::keyring_is_locked()) keyring::keyring_unlock()
 }
@@ -12,10 +16,10 @@ trim_url <- function(url) {
 }
 
 check_str_len1 <- function(x) {
-  arg_name <- deparse(substitute(x))
+  nm <- deparse(substitute(x))
 
   if (!(is.character(x) && length(x) == 1L)) {
-    stop(arg_name, " must be a single string", call. = FALSE)
+    stop(nm, " must be a single string", call. = FALSE)
   }
 }
 
@@ -25,4 +29,12 @@ check_pagelength <- function(pagelength) {
 
 check_language <- function(language) {
   stopifnot(language %in% c("de", "en"))
+}
+
+make_genesis_df <- function(x, url) {
+  attributes(x) <- c(attributes(x), list(
+    class = c("genesis_df", class(x)),
+    url = url
+  ))
+  x
 }

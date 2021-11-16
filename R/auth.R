@@ -37,7 +37,7 @@ login_check <- function() {
 
   structure(
     genesis_api("helloworld/logincheck", query),
-    class = "genesis_meta"
+    class = "genesis_status"
   )
 }
 
@@ -48,7 +48,8 @@ retrieve_login_data <- function() {
   if (length(available_usernames) == 0L) {
     stop(call. = FALSE, paste0(
       "GENESIS login data not found.\n",
-      "Run `set_login_data()` to save your username and password."
+      "Run `set_login_data()` to save your username and password.\n",
+      "(Register at https://www-genesis.destatis.de if you don't have an account yet.)"
     ))
   }
 

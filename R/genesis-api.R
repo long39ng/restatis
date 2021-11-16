@@ -5,7 +5,7 @@ genesis_api <- function(path, query = NULL) {
 
   url <- paste0(base_url, path)
 
-  resp <- httr::GET(url, ua, query = query)
+  resp <- httr::GET(url, ua, query = discard_null(query))
   if (httr::http_type(resp) != "application/json") {
     stop("API did not return json", call. = FALSE)
   }
@@ -32,7 +32,7 @@ genesis_api <- function(path, query = NULL) {
 }
 
 #' @export
-print.genesis_meta <- function(x, ...) {
+print.genesis_status <- function(x, ...) {
   cat("<GENESIS ", trim_url(x$response$url), ">\n", sep = "")
 
   field_names <- names(x$content)
@@ -55,10 +55,10 @@ print.genesis_meta <- function(x, ...) {
 #' @export
 print.genesis_df <- function(x, ...) {
   cat("<GENESIS ", trim_url(attr(x, "url")), ">\n", sep = "")
-  class(x) <- "data.frame"
+  class(x) <- setdiff(class(x), "genesis_df")
   print(x)
 }
 
 hello_genesis <- function() {
-  structure(genesis_api("helloworld/whoami"), class = "genesis_meta")
+  structure(genesis_api("helloworld/whoami"), class = "genesis_status")
 }

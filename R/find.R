@@ -14,10 +14,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' find_data_("Abfall", category = "statistics", pagelength = 6, language = "de")
+#' find_("Abfall", category = "statistics", pagelength = 6, language = "de")
 #' find_tables("Abfall", language = "de")
 #' }
-find_data_ <- function(term,
+find_ <- function(term,
                        category = c("tables", "statistics", "variables", "cubes", "time-series"),
                        pagelength = 100,
                        language = "en") {
@@ -43,45 +43,47 @@ find_data_ <- function(term,
 
   res <- genesis_api("find/find", query)
 
-  structure(
-    res$content[[categories[category]]] %||% list(),
-    class = c("genesis_df", "data.frame"),
-    url = res$response$url
-  )
+  ret <- res$content[[categories[category]]] %||% data.frame()
+
+  if (requireNamespace("tibble", quietly = TRUE)) {
+    ret <- tibble::as_tibble(ret)
+  }
+
+  make_genesis_df(ret, res$response$url)
 }
 
-#' @inheritDotParams find_data_
-#' @rdname find_data_
+#' @inheritDotParams find_
+#' @rdname find_
 #'
 #' @export
 find_tables <- function(...) {
-  find_data_(category = "tables", ...)
+  find_(category = "tables", ...)
 }
 
-#' @rdname find_data_
+#' @rdname find_
 #'
 #' @export
 find_statistics <- function(...) {
-  find_data_(category = "statistics", ...)
+  find_(category = "statistics", ...)
 }
 
-#' @rdname find_data_
+#' @rdname find_
 #'
 #' @export
 find_variables <- function(...) {
-  find_data_(category = "variables", ...)
+  find_(category = "variables", ...)
 }
 
-#' @rdname find_data_
+#' @rdname find_
 #'
 #' @export
 find_cubes <- function(...) {
-  find_data_(category = "cubes", ...)
+  find_(category = "cubes", ...)
 }
 
-#' @rdname find_data_
+#' @rdname find_
 #'
 #' @export
 find_timeseries <- function(...) {
-  find_data_(category = "time-series", ...)
+  find_(category = "time-series", ...)
 }

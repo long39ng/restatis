@@ -31,9 +31,7 @@ catalogue_statistics <- function(selection,
     language = language
   )
 
-  res <- genesis_api("catalogue/statistics", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/statistics", query), "List")
 }
 
 #' Catalogue of data cubes related to a statistic
@@ -70,9 +68,7 @@ catalogue_cubes2statistic <- function(name,
     language = language
   )
 
-  res <- genesis_api("catalogue/cubes2statistic", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/cubes2statistic", query), "List")
 }
 
 #' Catalogue of tables related to a statistic
@@ -109,9 +105,7 @@ catalogue_tables2statistic <- function(name,
     language = language
   )
 
-  res <- genesis_api("catalogue/tables2statistic", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/tables2statistic", query), "List")
 }
 
 #' Catalogue of time series related to a statistic
@@ -148,9 +142,7 @@ catalogue_timeseries2statistic <- function(name,
     language = language
   )
 
-  res <- genesis_api("catalogue/timeseries2statistic", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/timeseries2statistic", query), "List")
 }
 
 #' Catalogue of variables related to a statistic
@@ -193,7 +185,5 @@ catalogue_variables2statistic <- function(name,
     language = language
   )
 
-  res <- genesis_api("catalogue/variables2statistic", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/variables2statistic", query), "List")
 }

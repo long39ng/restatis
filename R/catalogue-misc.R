@@ -33,9 +33,7 @@ catalogue_cubes <- function(selection,
     language = language
   )
 
-  res <- genesis_api("catalogue/cubes", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/cubes", query), "List")
 }
 
 #' Modified data catalogue
@@ -73,9 +71,7 @@ catalogue_modifieddata <- function(selection = NULL,
     language = language
   )
 
-  res <- genesis_api("catalogue/modifieddata", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/modifieddata", query), "List")
 }
 
 #' Quality indicator catalogue
@@ -90,9 +86,7 @@ catalogue_qualitysigns <- function(language = "en") {
 
   query <- list(language = language)
 
-  res <- genesis_api("catalogue/qualitysigns", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/qualitysigns", query), "List")
 }
 
 #' Table catalogue
@@ -129,9 +123,7 @@ catalogue_tables <- function(selection,
     language = language
   )
 
-  res <- genesis_api("catalogue/tables", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/tables", query), "List")
 }
 
 #' Term catalogue
@@ -163,9 +155,7 @@ catalogue_terms <- function(selection,
     language = language
   )
 
-  res <- genesis_api("catalogue/terms", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/terms", query), "List")
 }
 
 #' Time series catalogue
@@ -202,9 +192,7 @@ catalogue_timeseries <- function(selection,
     language = language
   )
 
-  res <- genesis_api("catalogue/timeseries", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/timeseries", query), "List")
 }
 
 #' Value catalogue
@@ -240,7 +228,5 @@ catalogue_values <- function(selection,
     language = language
   )
 
-  res <- genesis_api("catalogue/values", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/values", query), "List")
 }

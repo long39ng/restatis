@@ -20,9 +20,7 @@ find_ <- function(term,
     language = language
   )
 
-  res <- genesis_api("find/find", query)
-
-  make_df(res$content, categories[category])
+  make_df(genesis_api("find/find", query), categories[category])
 }
 
 #' Find tables, statistics, variables, data cubes, or time series

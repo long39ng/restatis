@@ -31,12 +31,12 @@ trim_url <- function(url) {
   sub("username=([^&]+)&password=([^&]+)", "username=***&password=***", url)
 }
 
-make_df <- function(resp_content, data_element) {
-  if (resp_content$Status$Code != 0L) {
-    message(resp_content$Status$Type, ": ", resp_content$Status$Content, "\n")
+make_df <- function(api_resp, data_element) {
+  if (api_resp$content$Status$Code != 0L) {
+    message(api_resp$content$Status$Type, ": ", api_resp$content$Status$Content, "\n")
   }
 
-  ret <- resp_content[[data_element]] %||% data.frame()
+  ret <- api_resp$content[[data_element]] %||% data.frame()
 
   if (requireNamespace("tibble", quietly = TRUE)) {
     tibble::as_tibble(ret)

@@ -42,9 +42,7 @@ catalogue_variables <- function(selection,
     language = language
   )
 
-  res <- genesis_api("catalogue/variables", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/variables", query), "List")
 }
 
 #' Catalogue of data cubes related to a variable
@@ -81,9 +79,7 @@ catalogue_cubes2variable <- function(name,
     language = language
   )
 
-  res <- genesis_api("catalogue/cubes2variable", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/cubes2variable", query), "List")
 }
 
 #' Catalogue of statistics related to a variable
@@ -126,9 +122,7 @@ catalogue_statistics2variable <- function(name,
     language = language
   )
 
-  res <- genesis_api("catalogue/statistics2variable", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/statistics2variable", query), "List")
 }
 
 #' Catalogue of tables related to a variable
@@ -165,9 +159,7 @@ catalogue_tables2variable <- function(name,
     language = language
   )
 
-  res <- genesis_api("catalogue/tables2variable", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/tables2variable", query), "List")
 }
 
 #' Catalogue of time series related to a variable
@@ -204,9 +196,7 @@ catalogue_timeseries2variable <- function(name,
     language = language
   )
 
-  res <- genesis_api("catalogue/timeseries2variable", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/timeseries2variable", query), "List")
 }
 
 #' Catalogue of values related to a variable
@@ -247,7 +237,5 @@ catalogue_values2variable <- function(name,
     language = language
   )
 
-  res <- genesis_api("catalogue/values2variable", query)
-
-  make_df(res$content, "List")
+  make_df(genesis_api("catalogue/values2variable", query), "List")
 }

@@ -5,11 +5,10 @@
 #'
 #' @param term Term to search for
 #' @param category Category to be searched
-#' (one of "tables", "statistics", "variables", "cubes" or "time-series")
 #' @param pagelength Maximum number of results delivered
-#' @param language Messages and data descriptions in German (de) or English (en)?
+#' @param language Search terms, returned messages and data descriptions in German ("de") or English ("en")?
 #'
-#' @return A `data.frame` (or `tbl_df` if [tibble][tibble-package] is installed)
+#' @return A `data.frame` (or `tbl_df` if tibble package is installed)
 #' @export
 #'
 #' @examples
@@ -22,28 +21,26 @@ find_ <- function(term,
                   pagelength = 100,
                   language = "en") {
   check_str_len1(term)
+  check_pagelength(pagelength)
+  check_language(language)
 
   creds <- retrieve_login_data()
 
   categories <- c("Tables", "Statistics", "Variables", "Cubes", "Timeseries")
   names(categories) <- c("tables", "statistics", "variables", "cubes", "time-series")
 
-  category <- match.arg(category)
-  check_pagelength(pagelength)
-  check_language(language)
-
   query <- list(
     username = creds$username,
     password = creds$password,
     term = term,
-    category = category,
+    category = match.arg(category),
     pagelength = pagelength,
     language = language
   )
 
   res <- genesis_api("find/find", query)
 
-  make_df(res$content[[categories[category]]])
+  make_df(res$content, categories[category])
 }
 
 #' @inheritDotParams find_

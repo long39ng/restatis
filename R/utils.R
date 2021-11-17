@@ -31,8 +31,12 @@ trim_url <- function(url) {
   sub("username=([^&]+)&password=([^&]+)", "username=***&password=***", url)
 }
 
-make_df <- function(resp_df, url) {
-  ret <- resp_df %||% data.frame()
+make_df <- function(resp_content, data_element) {
+  if (resp_content$Status$Code != 0L) {
+    message(resp_content$Status$Type, ": ", resp_content$Status$Content, "\n")
+  }
+
+  ret <- resp_content[[data_element]] %||% data.frame()
 
   if (requireNamespace("tibble", quietly = TRUE)) {
     tibble::as_tibble(ret)

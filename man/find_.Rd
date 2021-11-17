@@ -29,12 +29,11 @@ find_timeseries(...)
 \arguments{
 \item{term}{Term to search for}
 
-\item{category}{Category to be searched
-(one of "tables", "statistics", "variables", "cubes" or "time-series")}
+\item{category}{Category to be searched}
 
 \item{pagelength}{Maximum number of results delivered}
 
-\item{language}{Messages and data descriptions in German (de) or English (en)?}
+\item{language}{Search terms, returned messages and data descriptions in German ("de") or English ("en")?}
 
 \item{...}{
   Arguments passed on to \code{\link[=find_]{find_}}
@@ -43,7 +42,7 @@ find_timeseries(...)
   }}
 }
 \value{
-A \code{data.frame} (or \code{tbl_df} if \link[=tibble-package]{tibble} is installed)
+A \code{data.frame} (or \code{tbl_df} if tibble package is installed)
 }
 \description{
 Retrieve lists of objects for a search term

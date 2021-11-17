@@ -1,21 +1,3 @@
-#' Find tables, statistics, variables, data cubes, or time series
-#'
-#' Retrieve lists of objects for a search term
-#' (tables, statistics, characteristics, data cubes or time series)
-#'
-#' @param term Term to search for
-#' @param category Category to be searched
-#' @param pagelength Maximum number of results delivered
-#' @param language Search terms, returned messages and data descriptions in German ("de") or English ("en")?
-#'
-#' @return A `data.frame` (or `tbl_df` if tibble package is installed)
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' find_("Abfall", category = "statistics", pagelength = 6, language = "de")
-#' find_tables("Abfall", language = "de")
-#' }
 find_ <- function(term,
                   category = c("tables", "statistics", "variables", "cubes", "time-series"),
                   pagelength = 100,
@@ -43,38 +25,55 @@ find_ <- function(term,
   make_df(res$content, categories[category])
 }
 
-#' @inheritDotParams find_
+#' Find tables, statistics, variables, data cubes, or time series
+#'
+#' Retrieves lists of objects for a search term
+#' (tables, statistics, characteristics, data cubes or time series)
+#'
+#' @param term Term to search for
+#' @param pagelength Maximum number of results delivered
+#' @param language Search terms, returned messages and data descriptions in German ("de") or English ("en")?
+#'
+#' @return A `data.frame` (or `tbl_df` if tibble package is installed)
+#'
 #' @rdname find_
 #'
 #' @export
-find_tables <- function(...) {
-  find_(category = "tables", ...)
+#'
+#' @examples
+#' \dontrun{
+#' find_statistics("Abfall", pagelength = 6, language = "de")
+#'
+#' find_variables("vote")
+#' }
+find_tables <- function(term, pagelength = 100, language = "en") {
+  find_(category = "tables", term, pagelength, language)
 }
 
 #' @rdname find_
 #'
 #' @export
-find_statistics <- function(...) {
-  find_(category = "statistics", ...)
+find_statistics <- function(term, pagelength = 100, language = "en") {
+  find_(category = "statistics", term, pagelength, language)
 }
 
 #' @rdname find_
 #'
 #' @export
-find_variables <- function(...) {
-  find_(category = "variables", ...)
+find_variables <- function(term, pagelength = 100, language = "en") {
+  find_(category = "variables", term, pagelength, language)
 }
 
 #' @rdname find_
 #'
 #' @export
-find_cubes <- function(...) {
-  find_(category = "cubes", ...)
+find_cubes <- function(term, pagelength = 100, language = "en") {
+  find_(category = "cubes", term, pagelength, language)
 }
 
 #' @rdname find_
 #'
 #' @export
-find_timeseries <- function(...) {
-  find_(category = "time-series", ...)
+find_timeseries <- function(term, pagelength = 100, language = "en") {
+  find_(category = "time-series", term, pagelength, language)
 }

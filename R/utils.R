@@ -13,8 +13,8 @@ unlock_keyring <- function() {
 check_str_len1 <- function(x) {
   nm <- deparse(substitute(x))
 
-  if (!(is.character(x) && length(x) == 1L)) {
-    stop(nm, " must be a single string", call. = FALSE)
+  if (!(is.null(x) || (is.character(x) && length(x) == 1L))) {
+    stop(nm, " must be a single string or NULL", call. = FALSE)
   }
 }
 

@@ -1,11 +1,12 @@
-#' Find tables, statistics, variables, data cubes, or time series
+#' Find statistics, tables, variables or values
 #'
 #' Retrieves lists of objects for a search term
-#' (tables, statistics, characteristics, data cubes or time series)
+#' (statistics, tables, variables or values)
 #'
 #' @param term Term to search for
 #' @param pagelength Maximum number of results delivered
-#' @param language Search terms, returned messages and data descriptions in German ("de") or English ("en")?
+#' @param language Search terms, returned messages and data descriptions
+#'   in German ("de") or English ("en")?
 #'
 #' @seealso catalogue_terms
 #'

@@ -33,7 +33,8 @@ independent of/cumulative to \code{startyear} and \code{endyear}}
 
 \item{stand}{Only retrieve data updated after this date (dd.mm.yyyy)}
 
-\item{language}{Search terms, returned messages and data descriptions in German ("de") or English ("en")?}
+\item{language}{Search terms, returned messages and data descriptions
+in German ("de") or English ("en")?}
 }
 \value{
 A \code{data.frame} (or \code{tbl_df} if tibble package is installed)

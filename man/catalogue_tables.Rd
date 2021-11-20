@@ -23,7 +23,8 @@ returned. Use of wildcard (*) possible.}
 
 \item{pagelength}{Maximum number of results delivered}
 
-\item{language}{Search terms, returned messages and data descriptions in German ("de") or English ("en")?}
+\item{language}{Search terms, returned messages and data descriptions
+in German ("de") or English ("en")?}
 }
 \value{
 A \code{data.frame} (or \code{tbl_df} if tibble package is installed)

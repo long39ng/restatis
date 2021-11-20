@@ -24,7 +24,8 @@ metadata_variable(name, area = c("free", "user", "all"), language = "en")
 \item "user" = objects saved to "Meine Tabellen"
 }}
 
-\item{language}{Search terms, returned messages and data descriptions in German ("de") or English ("en")?}
+\item{language}{Search terms, returned messages and data descriptions
+in German ("de") or English ("en")?}
 }
 \description{
 Retrieves metadata for a statistic, table, variable or value

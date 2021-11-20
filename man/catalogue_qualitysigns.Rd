@@ -7,7 +7,8 @@
 catalogue_qualitysigns(language = "en")
 }
 \arguments{
-\item{language}{Search terms, returned messages and data descriptions in German ("de") or English ("en")?}
+\item{language}{Search terms, returned messages and data descriptions
+in German ("de") or English ("en")?}
 }
 \value{
 A \code{data.frame} (or \code{tbl_df} if tibble package is installed)

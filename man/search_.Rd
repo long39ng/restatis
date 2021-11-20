@@ -4,7 +4,7 @@
 \alias{search_tables}
 \alias{search_statistics}
 \alias{search_variables}
-\title{Find tables, statistics, variables, data cubes, or time series}
+\title{Find statistics, tables, variables or values}
 \usage{
 search_tables(term, pagelength = 100, language = "en")
 
@@ -17,14 +17,15 @@ search_variables(term, pagelength = 100, language = "en")
 
 \item{pagelength}{Maximum number of results delivered}
 
-\item{language}{Search terms, returned messages and data descriptions in German ("de") or English ("en")?}
+\item{language}{Search terms, returned messages and data descriptions
+in German ("de") or English ("en")?}
 }
 \value{
 A \code{data.frame} (or \code{tbl_df} if tibble package is installed)
 }
 \description{
 Retrieves lists of objects for a search term
-(tables, statistics, characteristics, data cubes or time series)
+(statistics, tables, variables or values)
 }
 \examples{
 \dontrun{

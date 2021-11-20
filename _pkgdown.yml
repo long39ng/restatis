@@ -1,2 +1,33 @@
 url: https://long39ng.github.io/restatis
 
+authors:
+  Long Nguyen:
+    href: "https://lo-ng.netlify.app/"
+
+reference:
+- title: "Credentials"
+- contents:
+  - set_login_data
+  - login_check
+- title: "Search"
+- contents:
+  - search_
+- title: "Catalogue"
+- contents:
+  - catalogue_statistics
+  - catalogue_statistics_by_variable
+  - catalogue_tables
+  - catalogue_tables_by_statistic
+  - catalogue_tables_by_variable
+  - catalogue_variables
+  - catalogue_variables_by_statistic
+  - catalogue_values
+  - catalogue_values_by_variable
+  - catalogue_terms
+  - catalogue_modifieddata
+  - catalogue_qualitysigns
+- title: "Get data"
+- contents:
+  - get_table
+- title: "Metadata"
+  - metadata_

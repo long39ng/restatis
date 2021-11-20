@@ -11,23 +11,12 @@ reference:
   - login_check
 - title: "Search"
 - contents:
-  - search_
+  - starts_with("search")
 - title: "Catalogue"
 - contents:
-  - catalogue_statistics
-  - catalogue_statistics_by_variable
-  - catalogue_tables
-  - catalogue_tables_by_statistic
-  - catalogue_tables_by_variable
-  - catalogue_variables
-  - catalogue_variables_by_statistic
-  - catalogue_values
-  - catalogue_values_by_variable
-  - catalogue_terms
-  - catalogue_modifieddata
-  - catalogue_qualitysigns
+  - starts_with("catalogue")
 - title: "Get data"
 - contents:
   - get_table
 - title: "Metadata"
-  - metadata_
+  - starts_with("metadata")

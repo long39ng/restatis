@@ -167,7 +167,7 @@ catalogue_terms <- function(selection,
 #'
 #' @inherit catalogue_variables params return
 #'
-#' @export
+#' @noRd
 #'
 #' @examples
 #' \dontrun{

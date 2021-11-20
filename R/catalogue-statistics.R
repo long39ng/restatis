@@ -38,19 +38,19 @@ catalogue_statistics <- function(selection,
 #'
 #' Retrieves list of data cubes based on statistic name
 #'
-#' @inherit catalogue_variables2statistic params return
+#' @inherit catalogue_variables_by_statistic params return
 #'
 #' @noRd
 #'
 #' @examples
 #' \dontrun{
-#' catalogue_cubes2statistic("12411")
+#' catalogue_cubes_by_statistic("12411")
 #' }
-catalogue_cubes2statistic <- function(name,
-                                      selection = NULL,
-                                      area = c("free", "user", "all"),
-                                      pagelength = 100,
-                                      language = "en") {
+catalogue_cubes_by_statistic <- function(name,
+                                         selection = NULL,
+                                         area = c("free", "user", "all"),
+                                         pagelength = 100,
+                                         language = "en") {
   check_str_len1(name)
   check_str_len1(selection)
   check_pagelength(pagelength)
@@ -75,19 +75,19 @@ catalogue_cubes2statistic <- function(name,
 #'
 #' Retrieves list of tables based on statistic name
 #'
-#' @inherit catalogue_variables2statistic params return
+#' @inherit catalogue_variables_by_statistic params return
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' catalogue_tables2statistic("12411")
+#' catalogue_tables_by_statistic("12411")
 #' }
-catalogue_tables2statistic <- function(name,
-                                       selection = NULL,
-                                       area = c("free", "user", "all"),
-                                       pagelength = 100,
-                                       language = "en") {
+catalogue_tables_by_statistic <- function(name,
+                                          selection = NULL,
+                                          area = c("free", "user", "all"),
+                                          pagelength = 100,
+                                          language = "en") {
   check_str_len1(name)
   check_str_len1(selection)
   check_pagelength(pagelength)
@@ -112,19 +112,19 @@ catalogue_tables2statistic <- function(name,
 #'
 #' Retrieves list of time series based on statistic name
 #'
-#' @inherit catalogue_variables2statistic params return
+#' @inherit catalogue_variables_by_statistic params return
 #'
-#' @export
+#' @noRd
 #'
 #' @examples
 #' \dontrun{
-#' catalogue_timeseries2statistic("12411")
+#' catalogue_timeseries_by_statistic("12411")
 #' }
-catalogue_timeseries2statistic <- function(name,
-                                           selection = NULL,
-                                           area = c("free", "user", "all"),
-                                           pagelength = 100,
-                                           language = "en") {
+catalogue_timeseries_by_statistic <- function(name,
+                                              selection = NULL,
+                                              area = c("free", "user", "all"),
+                                              pagelength = 100,
+                                              language = "en") {
   check_str_len1(name)
   check_str_len1(selection)
   check_pagelength(pagelength)
@@ -157,15 +157,15 @@ catalogue_timeseries2statistic <- function(name,
 #'
 #' @examples
 #' \dontrun{
-#' catalogue_variables2statistic("12411")
+#' catalogue_variables_by_statistic("12411")
 #' }
-catalogue_variables2statistic <- function(name,
-                                          selection = NULL,
-                                          area = c("free", "user", "all"),
-                                          searchcriterion = c("code", "content"),
-                                          sortcriterion = c("code", "content"),
-                                          pagelength = 100,
-                                          language = "en") {
+catalogue_variables_by_statistic <- function(name,
+                                             selection = NULL,
+                                             area = c("free", "user", "all"),
+                                             searchcriterion = c("code", "content"),
+                                             sortcriterion = c("code", "content"),
+                                             pagelength = 100,
+                                             language = "en") {
   check_str_len1(name)
   check_str_len1(selection)
   check_pagelength(pagelength)

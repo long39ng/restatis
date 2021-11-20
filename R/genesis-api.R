@@ -1,16 +1,32 @@
+ua <- httr::user_agent("https://github.com/long39ng/restatis")
+
 base_url <- "https://www-genesis.destatis.de/genesisWS/rest/2020/"
 
 genesis_api <- function(path, query = NULL) {
-  ua <- httr::user_agent("https://github.com/long39ng/restatis")
+  resp <- genesis_api_raw(path, query)
 
+  tryCatch({ return(genesis_csv(resp)) }, error = function(e) invisible(e))
+
+  parsed <- genesis_json(resp)
+
+  list(
+    content = parsed,
+    path = path,
+    query = query,
+    response = resp
+  )
+}
+
+genesis_api_raw <- function(path, query = NULL) {
   url <- paste0(base_url, path)
 
-  resp <- httr::GET(url, ua, query = discard_null(query))
-  if (httr::http_type(resp) != "application/json") {
-    stop("API did not return json", call. = FALSE)
-  }
+  httr::GET(url, ua, query = discard_empty(query))
+}
 
-  parsed <- jsonlite::fromJSON(httr::content(resp, "text"))
+genesis_json <- function(resp) {
+  check_resp_type(resp, "application/json")
+
+  parsed <- jsonlite::fromJSON(httr::content(resp, "text", encoding = "UTF-8"))
 
   if (httr::http_error(resp)) {
     stop(
@@ -23,11 +39,28 @@ genesis_api <- function(path, query = NULL) {
     )
   }
 
-  list(
-    content = parsed,
-    path = path,
-    query = query,
-    response = resp
+  parsed
+}
+
+genesis_csv <- function(resp) {
+  check_resp_type(resp, "text/csv")
+
+  if (httr::http_error(resp)) {
+    stop(
+      sprintf("GENESIS API request failed [%s]", httr::status_code(resp)),
+      call. = FALSE
+    )
+  }
+
+  readr::read_delim(
+    httr::content(resp, "text", encoding = "UTF-8"),
+    delim = ";",
+    locale = readr::locale(
+      decimal_mark = ",",
+      grouping_mark = "."
+    ),
+    col_types = list(Zeit = readr::col_character()),
+    show_col_types = FALSE
   )
 }
 

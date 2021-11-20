@@ -6,10 +6,6 @@ Authors@R:
            comment = c(ORCID = "0000-0001-8878-7386"))
 Description: Enables access to data from the Federal Statistical Office of Germany (Destatis – <https://www-genesis.destatis.de/>) via their RESTful web service interface.
 License: MIT + file LICENSE
-Suggests: 
-    testthat (>= 3.0.0),
-    tibble
-Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
@@ -18,5 +14,10 @@ BugReports: https://github.com/long39ng/restatis/issues
 Imports: 
     askpass,
     httr,
+    jsonlite,
     keyring,
-    jsonlite
+    readr
+Suggests: 
+    testthat (>= 3.0.0),
+    tibble
+Config/testthat/edition: 3

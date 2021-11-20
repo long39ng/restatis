@@ -39,24 +39,10 @@ search_variables <- function(term, pagelength = 100, language = "en") {
   search_(category = "variables", term, pagelength, language)
 }
 
-#' @rdname search_
-#'
-#' @noRd
-search_cubes <- function(term, pagelength = 100, language = "en") {
-  search_(category = "cubes", term, pagelength, language)
-}
-
-#' @rdname search_
-#'
-#' @noRd
-search_timeseries <- function(term, pagelength = 100, language = "en") {
-  search_(category = "time-series", term, pagelength, language)
-}
-
-search_ <- function(term,
-                    category = c("tables", "statistics", "variables", "cubes", "time-series"),
-                    pagelength = 100,
-                    language = "en") {
+search_ <- function(category = c("tables", "statistics", "variables", "cubes", "time-series"),
+                    term = NULL,
+                    pagelength = NULL,
+                    language = NULL) {
   check_str_len1(term)
   check_pagelength(pagelength)
   check_language(language)

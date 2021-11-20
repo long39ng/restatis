@@ -49,8 +49,14 @@ get_table <- function(name,
   ret <- genesis_api("data/tablefile", query)
 
   if (is.data.frame(ret)) {
-    ret
+    return(ret)
+  }
+
+  print_status(ret)
+
+  if (requireNamespace("tibble", quietly = TRUE)) {
+    invisible(tibble::tibble())
   } else {
-    print_status(ret, return = TRUE)
+    invisible(data.frame())
   }
 }

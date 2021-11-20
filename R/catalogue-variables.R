@@ -25,61 +25,10 @@ catalogue_variables <- function(selection,
                                 sortcriterion = c("code", "content"),
                                 pagelength = 100,
                                 language = "en") {
-  check_str_len1(selection)
-  check_pagelength(pagelength)
-  check_language(language)
-
-  creds <- retrieve_login_data()
-
-  query <- list(
-    username = creds$username,
-    password = creds$password,
-    selection = selection,
-    area = match.arg(area),
-    searchcriterion = match.arg(searchcriterion),
-    sortcriterion = match.arg(sortcriterion),
-    pagelength = pagelength,
-    language = language
-  )
-
-  make_df(genesis_api("catalogue/variables", query), "List")
-}
-
-#' Catalogue of data cubes related to a variable
-#'
-#' Retrieves list of data cubes based on variable name (not exported because service unavailable)
-#'
-#' @inherit catalogue_statistics_by_variable params return
-#'
-#' @noRd
-#'
-#' @examples
-#' \dontrun{
-#' catalogue_cubes_by_variable("KREISE")
-#' }
-catalogue_cubes_by_variable <- function(name,
-                                        selection = NULL,
-                                        area = c("free", "user", "all"),
-                                        pagelength = 100,
-                                        language = "en") {
-  check_str_len1(name)
-  check_str_len1(selection)
-  check_pagelength(pagelength)
-  check_language(language)
-
-  creds <- retrieve_login_data()
-
-  query <- list(
-    username = creds$username,
-    password = creds$password,
-    name = name,
-    selection = selection,
-    area = match.arg(area),
-    pagelength = pagelength,
-    language = language
-  )
-
-  make_df(genesis_api("catalogue/cubes2variable", query), "List")
+  area <- match.arg(area)
+  searchcriterion <- match.arg(searchcriterion)
+  sortcriterion <- match.arg(sortcriterion)
+  do.call(catalogue_, c(as.list(environment()), method = "variables"))
 }
 
 #' Catalogue of statistics related to a variable
@@ -103,26 +52,10 @@ catalogue_statistics_by_variable <- function(name,
                                              sortcriterion = c("code", "content"),
                                              pagelength = 100,
                                              language = "en") {
-  check_str_len1(name)
-  check_str_len1(selection)
-  check_pagelength(pagelength)
-  check_language(language)
-
-  creds <- retrieve_login_data()
-
-  query <- list(
-    username = creds$username,
-    password = creds$password,
-    name = name,
-    selection = selection,
-    area = match.arg(area),
-    searchcriterion = match.arg(searchcriterion),
-    sortcriterion = match.arg(sortcriterion),
-    pagelength = pagelength,
-    language = language
-  )
-
-  make_df(genesis_api("catalogue/statistics2variable", query), "List")
+  area <- match.arg(area)
+  searchcriterion <- match.arg(searchcriterion)
+  sortcriterion <- match.arg(sortcriterion)
+  do.call(catalogue_, c(as.list(environment()), method = "statistics2variable"))
 }
 
 #' Catalogue of tables related to a variable
@@ -142,61 +75,8 @@ catalogue_tables_by_variable <- function(name,
                                          area = c("free", "user", "all"),
                                          pagelength = 100,
                                          language = "en") {
-  check_str_len1(name)
-  check_str_len1(selection)
-  check_pagelength(pagelength)
-  check_language(language)
-
-  creds <- retrieve_login_data()
-
-  query <- list(
-    username = creds$username,
-    password = creds$password,
-    name = name,
-    selection = selection,
-    area = match.arg(area),
-    pagelength = pagelength,
-    language = language
-  )
-
-  make_df(genesis_api("catalogue/tables2variable", query), "List")
-}
-
-#' Catalogue of time series related to a variable
-#'
-#' Retrieves list of time series based on variable name
-#'
-#' @inherit catalogue_statistics_by_variable params return
-#'
-#' @noRd
-#'
-#' @examples
-#' \dontrun{
-#' catalogue_timeseries_by_variable("KREISE")
-#' }
-catalogue_timeseries_by_variable <- function(name,
-                                             selection = NULL,
-                                             area = c("free", "user", "all"),
-                                             pagelength = 100,
-                                             language = "en") {
-  check_str_len1(name)
-  check_str_len1(selection)
-  check_pagelength(pagelength)
-  check_language(language)
-
-  creds <- retrieve_login_data()
-
-  query <- list(
-    username = creds$username,
-    password = creds$password,
-    name = name,
-    selection = selection,
-    area = match.arg(area),
-    pagelength = pagelength,
-    language = language
-  )
-
-  make_df(genesis_api("catalogue/timeseries2variable", query), "List")
+  area <- match.arg(area)
+  do.call(catalogue_, c(as.list(environment()), method = "tables2variable"))
 }
 
 #' Catalogue of values related to a variable
@@ -218,24 +98,8 @@ catalogue_values_by_variable <- function(name,
                                          sortcriterion = c("code", "content"),
                                          pagelength = 100,
                                          language = "en") {
-  check_str_len1(name)
-  check_str_len1(selection)
-  check_pagelength(pagelength)
-  check_language(language)
-
-  creds <- retrieve_login_data()
-
-  query <- list(
-    username = creds$username,
-    password = creds$password,
-    name = name,
-    selection = selection,
-    area = match.arg(area),
-    searchcriterion = match.arg(searchcriterion),
-    sortcriterion = match.arg(sortcriterion),
-    pagelength = pagelength,
-    language = language
-  )
-
-  make_df(genesis_api("catalogue/values2variable", query), "List")
+  area <- match.arg(area)
+  searchcriterion <- match.arg(searchcriterion)
+  sortcriterion <- match.arg(sortcriterion)
+  do.call(catalogue_, c(as.list(environment()), method = "values2variable"))
 }

@@ -1,41 +1,3 @@
-#' Data cube catalogue
-#'
-#' Retrieves list of data cubes according to selection (not exported because service unavailable)
-#'
-#' @inherit catalogue_variables params return
-#'
-#' @noRd
-#'
-#' @examples
-#' \dontrun{
-#' catalogue_cubes("124*")
-#' }
-catalogue_cubes <- function(selection,
-                            area = c("free", "user", "all"),
-                            searchcriterion = c("code", "content"),
-                            sortcriterion = c("code", "content"),
-                            pagelength = 100,
-                            language = "en") {
-  check_str_len1(selection)
-  check_pagelength(pagelength)
-  check_language(language)
-
-  creds <- retrieve_login_data()
-
-  query <- list(
-    username = creds$username,
-    password = creds$password,
-    selection = selection,
-    area = match.arg(area),
-    searchcriterion = match.arg(searchcriterion),
-    sortcriterion = match.arg(sortcriterion),
-    pagelength = pagelength,
-    language = language
-  )
-
-  make_df(genesis_api("catalogue/cubes", query), "List")
-}
-
 #' Modified data catalogue
 #'
 #' Retrieves list of tables according to selection
@@ -55,23 +17,7 @@ catalogue_modifieddata <- function(selection = NULL,
                                    date = "01.01.1970",
                                    pagelength = 100,
                                    language = "en") {
-  check_str_len1(selection)
-  check_str_len1(date)
-  check_pagelength(pagelength)
-  check_language(language)
-
-  creds <- retrieve_login_data()
-
-  query <- list(
-    username = creds$username,
-    password = creds$password,
-    selection = selection,
-    date = date,
-    pagelength = pagelength,
-    language = language
-  )
-
-  make_df(genesis_api("catalogue/modifieddata", query), "List")
+  do.call(catalogue_, c(as.list(environment()), method = "modifieddata"))
 }
 
 #' Quality indicator catalogue
@@ -82,11 +28,7 @@ catalogue_modifieddata <- function(selection = NULL,
 #'
 #' @export
 catalogue_qualitysigns <- function(language = "en") {
-  check_language(language)
-
-  query <- list(language = language)
-
-  make_df(genesis_api("catalogue/qualitysigns", query), "List")
+  do.call(catalogue_, c(as.list(environment()), method = "qualitysigns"))
 }
 
 #' Table catalogue
@@ -108,22 +50,8 @@ catalogue_tables <- function(selection,
                              area = c("free", "user", "all"),
                              pagelength = 100,
                              language = "en") {
-  check_str_len1(selection)
-  check_pagelength(pagelength)
-  check_language(language)
-
-  creds <- retrieve_login_data()
-
-  query <- list(
-    username = creds$username,
-    password = creds$password,
-    selection = selection,
-    area = match.arg(area),
-    pagelength = pagelength,
-    language = language
-  )
-
-  make_df(genesis_api("catalogue/tables", query), "List")
+  area <- match.arg(area)
+  do.call(catalogue_, c(as.list(environment()), method = "tables"))
 }
 
 #' Term catalogue
@@ -141,58 +69,7 @@ catalogue_tables <- function(selection,
 catalogue_terms <- function(selection,
                             pagelength = 100,
                             language = "en") {
-  check_str_len1(selection)
-  check_pagelength(pagelength)
-  check_language(language)
-
-  creds <- retrieve_login_data()
-
-  query <- list(
-    username = creds$username,
-    password = creds$password,
-    selection = selection,
-    pagelength = pagelength,
-    language = language
-  )
-
-  make_df(genesis_api("catalogue/terms", query), "List")
-}
-
-#' Time series catalogue
-#'
-#' Retrieves list of time series according to selection
-#'
-#' @param selection String to filter for the code of the time series to be
-#'   returned. Use of wildcard (*) possible.
-#'
-#' @inherit catalogue_variables params return
-#'
-#' @noRd
-#'
-#' @examples
-#' \dontrun{
-#' catalogue_timeseries("21*")
-#' }
-catalogue_timeseries <- function(selection,
-                                 area = c("free", "user", "all"),
-                                 pagelength = 100,
-                                 language = "en") {
-  check_str_len1(selection)
-  check_pagelength(pagelength)
-  check_language(language)
-
-  creds <- retrieve_login_data()
-
-  query <- list(
-    username = creds$username,
-    password = creds$password,
-    selection = selection,
-    area = match.arg(area),
-    pagelength = pagelength,
-    language = language
-  )
-
-  make_df(genesis_api("catalogue/timeseries", query), "List")
+  do.call(catalogue_, c(as.list(environment()), method = "terms"))
 }
 
 #' Value catalogue
@@ -212,7 +89,23 @@ catalogue_values <- function(selection,
                              sortcriterion = c("code", "content"),
                              pagelength = 100,
                              language = "en") {
+  searchcriterion <- match.arg(searchcriterion)
+  sortcriterion <- match.arg(sortcriterion)
+  do.call(catalogue_, c(as.list(environment()), method = "values"))
+}
+
+catalogue_ <- function(method,
+                       name = NULL,
+                       selection = NULL,
+                       area = NULL,
+                       searchcriterion = NULL,
+                       sortcriterion = NULL,
+                       date = NULL,
+                       pagelength = NULL,
+                       language = NULL) {
+  check_str_len1(name)
   check_str_len1(selection)
+  check_str_len1(date)
   check_pagelength(pagelength)
   check_language(language)
 
@@ -221,12 +114,15 @@ catalogue_values <- function(selection,
   query <- list(
     username = creds$username,
     password = creds$password,
+    name = name,
     selection = selection,
-    searchcriterion = match.arg(searchcriterion),
-    sortcriterion = match.arg(sortcriterion),
+    area = area,
+    searchcriterion = searchcriterion,
+    sortcriterion = sortcriterion,
+    date = date,
     pagelength = pagelength,
     language = language
   )
 
-  make_df(genesis_api("catalogue/values", query), "List")
+  make_df(genesis_api(paste0("catalogue/", method), query), "List")
 }

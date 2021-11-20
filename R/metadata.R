@@ -1,0 +1,73 @@
+#' Get metadata
+#'
+#' Retrieves metadata for a statistic, table, variable or value
+#'
+#' @inherit catalogue_statistics_by_variable params
+#'
+#' @rdname metadata_
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' metadata_statistic("12411")
+#' metadata_table("12411-0001")
+#' metadata_variable("KREISE")
+#' metadata_value("VV101")
+#' }
+metadata_statistic <- function(name,
+                               area = c("free", "user", "all"),
+                               language = "en") {
+  metadata_("statistic", name, match.arg(area), language)
+}
+
+#' @rdname metadata_
+#'
+#' @export
+metadata_table <- function(name,
+                           area = c("free", "user", "all"),
+                           language = "en") {
+  metadata_("table", name, match.arg(area), language)
+}
+
+#' @rdname metadata_
+#'
+#' @export
+metadata_value <- function(name,
+                           area = c("free", "user", "all"),
+                           language = "en") {
+  metadata_("value", name, match.arg(area), language)
+}
+
+#' @rdname metadata_
+#'
+#' @export
+metadata_variable <- function(name,
+                              area = c("free", "user", "all"),
+                              language = "en") {
+  metadata_("variable", name, match.arg(area), language)
+}
+
+metadata_ <- function(method,
+                      name = NULL,
+                      area = NULL,
+                      language = NULL) {
+  check_str_len1(name)
+  check_language(language)
+
+  creds <- retrieve_login_data()
+
+  query <- list(
+    username = creds$username,
+    password = creds$password,
+    name = name,
+    area = area,
+    language = language
+  )
+
+  resp <- genesis_api(paste0("metadata/", method), query)
+
+  print_status(resp)
+
+  if (!is.null(resp$content$Object)) print_content(resp$content$Object)
+}

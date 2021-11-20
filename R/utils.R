@@ -45,7 +45,9 @@ check_language <- function(language) {
 }
 
 check_resp_type <- function(resp, type) {
-  stopifnot(httr::http_type(resp) == type)
+  if (!httr::http_type(resp) == type) {
+    stop("GENESIS API did not return ", type, call. = FALSE)
+  }
 }
 
 trim_url <- function(url) {
@@ -54,9 +56,7 @@ trim_url <- function(url) {
 }
 
 make_df <- function(api_resp, data_element) {
-  if (api_resp$content$Status$Code != 0L) {
-    print_status(api_resp)
-  }
+  print_status(api_resp)
 
   ret <- api_resp$content[[data_element]] %||% data.frame()
 
@@ -67,26 +67,31 @@ make_df <- function(api_resp, data_element) {
   }
 }
 
-print_status <- function(x, return = FALSE) {
-  if (!is.null(x$content$Status)) {
-    message(x$content$Status$Type, ": ", x$content$Status$Content, "\n")
-  } else {
-    cat("<GENESIS ", trim_url(x$response$url), ">\n", sep = "")
+print_url <- function(api_resp) {
+  cat("<GENESIS ", trim_url(api_resp$response$url), ">\n", sep = "")
+}
 
-    field_names <- names(x$content)
-
-    Map(
-      function(name, content) {
-        cat(
-          sprintf(paste0("%-", max(nchar(field_names)) + 1, "s"), name),
-          content, "\n",
-          sep = ""
-        )
-      },
-      field_names,
-      x$content
-    )
+print_status <- function(api_resp) {
+  if (isTRUE(api_resp$content$Status$Code != 0L)) {
+    message(api_resp$content$Status$Type, ": ", api_resp$content$Status$Content)
   }
+}
 
-  if (return) invisible(x)
+print_content <- function(x) {
+  x <- unlist(x)
+  nms <- names(x)
+
+  Map(
+    function(name, content) {
+      cat(
+        sprintf(paste0("%-", max(nchar(nms)) + 1, "s"), name),
+        content, "\n",
+        sep = ""
+      )
+    },
+    nms,
+    x
+  )
+
+  invisible(x)
 }

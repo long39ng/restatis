@@ -65,5 +65,7 @@ genesis_csv <- function(resp) {
 }
 
 hello_genesis <- function() {
-  print_status(genesis_api("helloworld/whoami"))
+  resp <- genesis_api("helloworld/whoami")
+  print_url(resp)
+  print_content(resp$content)
 }

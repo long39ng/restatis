@@ -20,7 +20,7 @@ genesis_api <- function(path, query = NULL) {
 genesis_api_raw <- function(path, query = NULL) {
   url <- paste0(base_url, path)
 
-  httr::GET(url, ua, query = discard_empty(query))
+  httr::RETRY("GET", url, ua, query = discard_empty(query))
 }
 
 genesis_json <- function(resp) {

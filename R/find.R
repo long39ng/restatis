@@ -1,7 +1,7 @@
-#' Find statistics, tables, variables or values
+#' Find statistics, tables or values
 #'
 #' Retrieves lists of objects for a search term
-#' (statistics, tables, variables or values)
+#' (statistics, tables or variables)
 #'
 #' @param term Term to search for
 #' @param pagelength Maximum number of results delivered

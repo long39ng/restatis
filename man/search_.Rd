@@ -4,7 +4,7 @@
 \alias{search_tables}
 \alias{search_statistics}
 \alias{search_variables}
-\title{Find statistics, tables, variables or values}
+\title{Find statistics, tables or values}
 \usage{
 search_tables(term, pagelength = 100, language = "en")
 
@@ -25,7 +25,7 @@ A \code{data.frame} (or \code{tbl_df} if tibble package is installed)
 }
 \description{
 Retrieves lists of objects for a search term
-(statistics, tables, variables or values)
+(statistics, tables or variables)
 }
 \examples{
 \dontrun{

@@ -3,8 +3,8 @@
 }
 
 discard_empty <- function(x) {
-  x <- x[!sapply(x, is.null)]
-  x[sapply(x, nzchar)]
+  x <- x[!vapply(x, is.null, logical(1L))]
+  x[vapply(x, nzchar, logical(1L))]
 }
 
 unlock_keyring <- function() {

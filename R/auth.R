@@ -35,10 +35,7 @@ login_check <- function() {
     language = "en"
   )
 
-  resp <- genesis_api("helloworld/logincheck", query)
-
-  print_url(resp)
-  print_content(resp$content)
+  make_genesis_list(genesis_api("helloworld/logincheck", query))
 }
 
 retrieve_login_data <- function() {

@@ -5,9 +5,8 @@ base_url <- "https://www-genesis.destatis.de/genesisWS/rest/2020/"
 genesis_api <- function(path, query = NULL) {
   resp <- genesis_api_raw(path, query)
 
-  tryCatch({ return(genesis_csv(resp)) }, error = function(e) invisible(e))
-
-  parsed <- genesis_json(resp)
+  parsed <- tryCatch({ genesis_csv(resp) }, error = function(e) NULL) %||%
+    genesis_json(resp)
 
   list(
     content = parsed,
@@ -65,7 +64,30 @@ genesis_csv <- function(resp) {
 }
 
 hello_genesis <- function() {
-  resp <- genesis_api("helloworld/whoami")
-  print_url(resp)
-  print_content(resp$content)
+  make_genesis_list(genesis_api("helloworld/whoami"))
+}
+
+#' @export
+print.genesis_list <- function(x, ...) {
+  print_url(attr(x, "url"))
+  nms <- names(x)
+  Map(
+    function(field, content) {
+      cat(
+        sprintf(paste0("%-", max(nchar(nms)) + 1, "s"), field),
+        content, "\n",
+        sep = ""
+      )
+    },
+    nms,
+    x
+  )
+  invisible(x)
+}
+
+#' @export
+print.genesis_tbl <- function(x, ...) {
+  print_url(attr(x, "url"))
+  class(x) <- setdiff(class(x), "genesis_tbl")
+  print(x)
 }

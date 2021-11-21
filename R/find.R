@@ -62,5 +62,5 @@ search_ <- function(category = c("tables", "statistics", "variables", "cubes", "
     language = language
   )
 
-  make_df(genesis_api("find/find", query), categories[category])
+  make_genesis_tbl(genesis_api("find/find", query), categories[category])
 }

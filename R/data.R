@@ -46,13 +46,11 @@ get_table <- function(name,
     format = "ffcsv"
   )
 
-  ret <- genesis_api("data/tablefile", query)
+  resp <- genesis_api("data/tablefile", query)
 
-  if (is.data.frame(ret)) {
-    return(ret)
-  }
+  tryCatch({ return(make_genesis_tbl(resp)) }, error = function(e) NULL)
 
-  print_status(ret)
+  print_url(resp$response$url)
 
   if (requireNamespace("tibble", quietly = TRUE)) {
     invisible(tibble::tibble())

@@ -55,43 +55,51 @@ trim_url <- function(url) {
   sub("username=([^&]+)&password=([^&]+)", "username=***&password=***", url)
 }
 
-make_df <- function(api_resp, data_element) {
+make_genesis_list <- function(api_resp, element) {
   print_status(api_resp)
 
-  ret <- api_resp$content[[data_element]] %||% data.frame()
-
-  if (requireNamespace("tibble", quietly = TRUE)) {
-    tibble::as_tibble(ret)
+  if (missing(element)) {
+    ret <- unlist(api_resp$content) %||% character()
   } else {
-    ret
+    ret <- unlist(api_resp$content[[element]]) %||% character()
   }
+
+  class(ret) <- c("genesis_list", class(ret))
+  attr(ret, "url") <- api_resp$response$url
+
+  ret
 }
 
-print_url <- function(api_resp) {
-  cat("<GENESIS ", trim_url(api_resp$response$url), ">\n", sep = "")
+make_genesis_tbl <- function(api_resp, element) {
+  print_status(api_resp)
+
+  if (missing(element)) {
+    ret <- api_resp$content
+    stopifnot(is.data.frame(ret))
+  } else {
+    ret <- api_resp$content[[element]] %||% data.frame()
+  }
+
+  if (requireNamespace("tibble", quietly = TRUE)) {
+    ret <- tibble::as_tibble(ret)
+  }
+
+  class(ret) <- c("genesis_tbl", class(ret))
+  attr(ret, "url") <- api_resp$response$url
+
+  ret
+}
+
+print_url <- function(url) {
+  cat("<GENESIS ", trim_url(url), ">\n", sep = "")
 }
 
 print_status <- function(api_resp) {
-  if (isTRUE(api_resp$content$Status$Code != 0L)) {
+  if (tryCatch(
+    { isTRUE(api_resp$content$Status$Code != 0L) },
+    error = function(e) FALSE,
+    warning = function(w) FALSE
+  )) {
     message(api_resp$content$Status$Type, ": ", api_resp$content$Status$Content)
   }
-}
-
-print_content <- function(x) {
-  x <- unlist(x)
-  nms <- names(x)
-
-  Map(
-    function(name, content) {
-      cat(
-        sprintf(paste0("%-", max(nchar(nms)) + 1, "s"), name),
-        content, "\n",
-        sep = ""
-      )
-    },
-    nms,
-    x
-  )
-
-  invisible(x)
 }

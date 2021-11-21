@@ -65,9 +65,5 @@ metadata_ <- function(method,
     language = language
   )
 
-  resp <- genesis_api(paste0("metadata/", method), query)
-
-  print_status(resp)
-
-  if (!is.null(resp$content$Object)) print_content(resp$content$Object)
+  make_genesis_list(genesis_api(paste0("metadata/", method), query), "Object")
 }

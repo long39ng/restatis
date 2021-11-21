@@ -124,5 +124,5 @@ catalogue_ <- function(method,
     language = language
   )
 
-  make_df(genesis_api(paste0("catalogue/", method), query), "List")
+  make_genesis_tbl(genesis_api(paste0("catalogue/", method), query), "List")
 }

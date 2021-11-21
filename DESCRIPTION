@@ -17,6 +17,7 @@ Imports:
     httr,
     jsonlite,
     keyring,
+    memoise,
     readr
 Suggests: 
     testthat (>= 3.0.0),

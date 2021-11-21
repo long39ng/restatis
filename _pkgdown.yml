@@ -21,3 +21,6 @@ reference:
 - title: "Metadata"
 - contents:
   - starts_with("metadata")
+- title: "Caching"
+- contents:
+  - reset_cache

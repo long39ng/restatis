@@ -19,8 +19,8 @@
 get_table <- function(name,
                       area = c("free", "user", "all"),
                       compress = FALSE,
-                      startyear = NULL,
-                      endyear = NULL,
+                      startyear = 1900,
+                      endyear = 2100,
                       timeslices = NULL,
                       stand = NULL,
                       language = "en") {

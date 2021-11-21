@@ -132,7 +132,7 @@
 <span class="co">#&gt; 15 12711-0023 "Migration between Germany and foreign countrie… 2000 to 2020     </span>
 <span class="co">#&gt; 16 12711-0030 "Ethnic German repatriates: Germany, years, age… 1997 to 2019</span>
 
-<span class="co"># Get data from the table "Migration between the Länder..."</span>
+<span class="co"># Get the table "Migration between the Länder..."</span>
 <span class="fu"><a href="reference/get_table.html">get_table</a></span><span class="op">(</span><span class="st">"12711-0020"</span><span class="op">)</span>
 <span class="co">#&gt; &lt;GENESIS data/tablefile?username=***&amp;password=***&amp;name=12711-0020&amp;area=free&amp;compress=false&amp;startyear=1900&amp;endyear=2100&amp;language=en&amp;format=ffcsv&gt;</span>
 <span class="co">#&gt; # A tibble: 3,213 × 20</span>
@@ -155,7 +155,7 @@
 <span class="co">#&gt; #   3_Auspraegung_Label &lt;chr&gt;, BEV013__Zuzuege__Anzahl &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   BEV014__Fortzuege__Anzahl &lt;dbl&gt;, BEV015__Wanderungssaldo__Anzahl &lt;dbl&gt;</span>
 
-<span class="co"># Get metadata about variables in the table</span>
+<span class="co"># Get metadata about a variable in the table</span>
 <span class="fu"><a href="reference/metadata_statistic.html">metadata_variable</a></span><span class="op">(</span><span class="st">"DLAND"</span><span class="op">)</span>
 <span class="co">#&gt; &lt;GENESIS metadata/variable?username=***&amp;password=***&amp;name=DLAND&amp;area=free&amp;language=en&gt;</span>
 <span class="co">#&gt; Code          DLAND</span>
@@ -165,13 +165,28 @@
 <span class="co">#&gt; Validity.From 1950-01-01</span>
 <span class="co">#&gt; Updated       2018-10-29 17:13:39h</span>
 
-<span class="fu"><a href="reference/metadata_statistic.html">metadata_variable</a></span><span class="op">(</span><span class="st">"BEV015"</span><span class="op">)</span>
-<span class="co">#&gt; &lt;GENESIS metadata/variable?username=***&amp;password=***&amp;name=BEV015&amp;area=free&amp;language=en&gt;</span>
-<span class="co">#&gt; Code    BEV015</span>
-<span class="co">#&gt; Content Migration balance</span>
-<span class="co">#&gt; Type    Value</span>
-<span class="co">#&gt; Values  -1</span>
-<span class="co">#&gt; Updated 2020-11-19 15:44:16h</span></code></pre></div>
+<span class="co"># List values of this variable</span>
+<span class="fu"><a href="reference/catalogue_values_by_variable.html">catalogue_values_by_variable</a></span><span class="op">(</span><span class="st">"DLAND"</span><span class="op">)</span>
+<span class="co">#&gt; &lt;GENESIS catalogue/values2variable?username=***&amp;password=***&amp;name=DLAND&amp;area=free&amp;searchcriterion=code&amp;sortcriterion=code&amp;pagelength=100&amp;language=en&gt;</span>
+<span class="co">#&gt; # A tibble: 16 × 4</span>
+<span class="co">#&gt;    Code  Content                Variables Information</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;                  &lt;chr&gt;     &lt;chr&gt;      </span>
+<span class="co">#&gt;  1 08    Baden-Württemberg      8         false      </span>
+<span class="co">#&gt;  2 09    Bayern                 8         false      </span>
+<span class="co">#&gt;  3 11    Berlin                 10        false      </span>
+<span class="co">#&gt;  4 12    Brandenburg            8         false      </span>
+<span class="co">#&gt;  5 04    Bremen                 11        false      </span>
+<span class="co">#&gt;  6 02    Hamburg                11        false      </span>
+<span class="co">#&gt;  7 06    Hessen                 8         false      </span>
+<span class="co">#&gt;  8 13    Mecklenburg-Vorpommern 11        false      </span>
+<span class="co">#&gt;  9 03    Niedersachsen          9         false      </span>
+<span class="co">#&gt; 10 05    Nordrhein-Westfalen    9         false      </span>
+<span class="co">#&gt; 11 07    Rheinland-Pfalz        8         false      </span>
+<span class="co">#&gt; 12 10    Saarland               10        false      </span>
+<span class="co">#&gt; 13 14    Sachsen                8         false      </span>
+<span class="co">#&gt; 14 15    Sachsen-Anhalt         10        false      </span>
+<span class="co">#&gt; 15 01    Schleswig-Holstein     11        false      </span>
+<span class="co">#&gt; 16 16    Thüringen              10        false</span></code></pre></div>
 </div>
 <div id="caching" class="section level2">
 <h2 class="hasAnchor">

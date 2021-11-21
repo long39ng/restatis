@@ -83,7 +83,7 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>To use most functionality of the package, you need to have an account at <a href="https://www-genesis.destatis.de" class="uri">https://www-genesis.destatis.de</a> and store your username and password using <code><a href="reference/set_login_data.html">set_login_data()</a></code>.[1] You can run <code><a href="reference/login_check.html">login_check()</a></code> to see if you can access the API with the saved credentials.</p>
-<p>Features of {restatis} include searching for data using keywords (e.g. <code>search_statistics</code>) or the GENESIS catalogue (e.g. <code>catalogue_tables_by_statistic</code>), retrieving data tables (<code>get_table</code>) and metadata about the tables as well as other objects (e.g. <code>metadata_variable</code>).</p>
+<p>Features of {restatis} include searching for data using keywords (e.g. <code><a href="reference/search_tables.html">search_statistics()</a></code>) or the GENESIS catalogue (e.g. <code><a href="reference/catalogue_tables_by_statistic.html">catalogue_tables_by_statistic()</a></code>), retrieving data tables (<code><a href="reference/get_table.html">get_table()</a></code>) and metadata about the tables as well as other objects (e.g. <code><a href="reference/metadata_statistic.html">metadata_variable()</a></code>).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/long39ng/restatis">restatis</a></span><span class="op">)</span>
 
@@ -132,23 +132,23 @@
 <span class="co">#&gt; 15 12711-0023 "Migration between Germany and foreign countrie… 2000 to 2020     </span>
 <span class="co">#&gt; 16 12711-0030 "Ethnic German repatriates: Germany, years, age… 1997 to 2019</span>
 
-<span class="co"># Get the table "Migration between the Länder..."</span>
+<span class="co"># Get data from the table "Migration between the Länder..."</span>
 <span class="fu"><a href="reference/get_table.html">get_table</a></span><span class="op">(</span><span class="st">"12711-0020"</span><span class="op">)</span>
-<span class="co">#&gt; &lt;GENESIS data/tablefile?username=***&amp;password=***&amp;name=12711-0020&amp;area=free&amp;compress=false&amp;language=en&amp;format=ffcsv&gt;</span>
-<span class="co">#&gt; # A tibble: 153 × 20</span>
+<span class="co">#&gt; &lt;GENESIS data/tablefile?username=***&amp;password=***&amp;name=12711-0020&amp;area=free&amp;compress=false&amp;startyear=1900&amp;endyear=2100&amp;language=en&amp;format=ffcsv&gt;</span>
+<span class="co">#&gt; # A tibble: 3,213 × 20</span>
 <span class="co">#&gt;    Statistik_Code Statistik_Label    Zeit_Code Zeit_Label Zeit  `1_Merkmal_Code`</span>
 <span class="co">#&gt;             &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;           </span>
-<span class="co">#&gt;  1          12711 Wanderungsstatist… JAHR      Jahr       2020  DLAND           </span>
-<span class="co">#&gt;  2          12711 Wanderungsstatist… JAHR      Jahr       2020  DLAND           </span>
-<span class="co">#&gt;  3          12711 Wanderungsstatist… JAHR      Jahr       2020  DLAND           </span>
-<span class="co">#&gt;  4          12711 Wanderungsstatist… JAHR      Jahr       2020  DLAND           </span>
-<span class="co">#&gt;  5          12711 Wanderungsstatist… JAHR      Jahr       2020  DLAND           </span>
-<span class="co">#&gt;  6          12711 Wanderungsstatist… JAHR      Jahr       2020  DLAND           </span>
-<span class="co">#&gt;  7          12711 Wanderungsstatist… JAHR      Jahr       2020  DLAND           </span>
-<span class="co">#&gt;  8          12711 Wanderungsstatist… JAHR      Jahr       2020  DLAND           </span>
-<span class="co">#&gt;  9          12711 Wanderungsstatist… JAHR      Jahr       2020  DLAND           </span>
-<span class="co">#&gt; 10          12711 Wanderungsstatist… JAHR      Jahr       2020  DLAND           </span>
-<span class="co">#&gt; # … with 143 more rows, and 14 more variables: 1_Merkmal_Label &lt;chr&gt;,</span>
+<span class="co">#&gt;  1          12711 Wanderungsstatist… JAHR      Jahr       2000  DLAND           </span>
+<span class="co">#&gt;  2          12711 Wanderungsstatist… JAHR      Jahr       2000  DLAND           </span>
+<span class="co">#&gt;  3          12711 Wanderungsstatist… JAHR      Jahr       2000  DLAND           </span>
+<span class="co">#&gt;  4          12711 Wanderungsstatist… JAHR      Jahr       2000  DLAND           </span>
+<span class="co">#&gt;  5          12711 Wanderungsstatist… JAHR      Jahr       2000  DLAND           </span>
+<span class="co">#&gt;  6          12711 Wanderungsstatist… JAHR      Jahr       2000  DLAND           </span>
+<span class="co">#&gt;  7          12711 Wanderungsstatist… JAHR      Jahr       2000  DLAND           </span>
+<span class="co">#&gt;  8          12711 Wanderungsstatist… JAHR      Jahr       2000  DLAND           </span>
+<span class="co">#&gt;  9          12711 Wanderungsstatist… JAHR      Jahr       2000  DLAND           </span>
+<span class="co">#&gt; 10          12711 Wanderungsstatist… JAHR      Jahr       2000  DLAND           </span>
+<span class="co">#&gt; # … with 3,203 more rows, and 14 more variables: 1_Merkmal_Label &lt;chr&gt;,</span>
 <span class="co">#&gt; #   1_Auspraegung_Code &lt;chr&gt;, 1_Auspraegung_Label &lt;chr&gt;, 2_Merkmal_Code &lt;chr&gt;,</span>
 <span class="co">#&gt; #   2_Merkmal_Label &lt;chr&gt;, 2_Auspraegung_Code &lt;chr&gt;, 2_Auspraegung_Label &lt;chr&gt;,</span>
 <span class="co">#&gt; #   3_Merkmal_Code &lt;chr&gt;, 3_Merkmal_Label &lt;chr&gt;, 3_Auspraegung_Code &lt;chr&gt;,</span>
@@ -172,6 +172,13 @@
 <span class="co">#&gt; Type    Value</span>
 <span class="co">#&gt; Values  -1</span>
 <span class="co">#&gt; Updated 2020-11-19 15:44:16h</span></code></pre></div>
+</div>
+<div id="caching" class="section level2">
+<h2 class="hasAnchor">
+<a href="#caching" class="anchor"></a>Caching</h2>
+<p>{restatis} uses <a href="https://github.com/r-lib/memoise">memoisation</a> to cache query results. This means that if you call a function multiple times with the same input, the values returned the first time are stored and reused from the second time.</p>
+<p>Run <code><a href="reference/reset_cache.html">reset_cache()</a></code> to forget the cached results.</p>
+<p>Cached objects are stored in the memory and do not persist across R sessions.</p>
 </div>
 <div id="disclaimer" class="section level2">
 <h2 class="hasAnchor">

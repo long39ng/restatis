@@ -11,6 +11,8 @@ get_table(
   startyear = 1900,
   endyear = 2100,
   timeslices = NULL,
+  regionalvariable = NULL,
+  regionalkey = NULL,
   stand = NULL,
   language = "en"
 )
@@ -31,6 +33,13 @@ get_table(
 \item{timeslices}{Number of latest time slices to retrieve --
 independent of/cumulative to \code{startyear} and \code{endyear}}
 
+\item{regionalvariable}{Code of the regional variable whose value is
+specified in \code{regionalkey} to filter the results}
+
+\item{regionalkey}{One or more regional keys. Multiple values can be supplied
+as a character vector or as a single string, with the regional keys
+separated by commas. Use of wildcard (*) possible.}
+
 \item{stand}{Only retrieve data updated after this date (dd.mm.yyyy)}
 
 \item{language}{Search terms, returned messages and data descriptions
@@ -45,5 +54,9 @@ Retrieves a data table based on the name of the table
 \examples{
 \dontrun{
 get_table("12411-0001", startyear = 1960, endyear = 1969)
+
+# Filter results by region
+# ("KREISE": administrative districts; "01001": Flensburg)
+get_table("12411-0015", regionalvariable = "KREISE", regionalkey = "01001")
 }
 }

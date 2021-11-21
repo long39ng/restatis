@@ -16,6 +16,11 @@ lgl_to_str <- function(x) {
   tolower(x)
 }
 
+collapse_str <- function(x) {
+  stopifnot(is.character(x))
+  paste0(x, collapse = ",")
+}
+
 check_num_len1 <- function(x) {
   nm <- deparse(substitute(x))
 
@@ -64,18 +69,14 @@ make_genesis_list <- function(api_resp, element) {
     ret <- unlist(api_resp$content[[element]]) %||% character()
   }
 
-  class(ret) <- c("genesis_list", class(ret))
-  attr(ret, "url") <- api_resp$response$url
-
-  ret
+  make_genesis_class(ret, "list", api_resp$response$url)
 }
 
 make_genesis_tbl <- function(api_resp, element) {
   print_status(api_resp)
 
   if (missing(element)) {
-    ret <- api_resp$content
-    stopifnot(is.data.frame(ret))
+    ret <- api_resp$content %||% data.frame()
   } else {
     ret <- api_resp$content[[element]] %||% data.frame()
   }
@@ -84,10 +85,13 @@ make_genesis_tbl <- function(api_resp, element) {
     ret <- tibble::as_tibble(ret)
   }
 
-  class(ret) <- c("genesis_tbl", class(ret))
-  attr(ret, "url") <- api_resp$response$url
+  make_genesis_class(ret, "tbl", api_resp$response$url)
+}
 
-  ret
+make_genesis_class <- function(x, class, url) {
+  class(x) <- c(paste0("genesis_", class), class(x))
+  attr(x, "url") <- url
+  x
 }
 
 print_url <- function(url) {

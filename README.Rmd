@@ -85,7 +85,7 @@ catalogue_tables_by_statistic("12711")
 #> 15 12711-0023 "Migration between Germany and foreign countrie… 2000 to 2020     
 #> 16 12711-0030 "Ethnic German repatriates: Germany, years, age… 1997 to 2019
 
-# Get data from the table "Migration between the Länder..."
+# Get the table "Migration between the Länder..."
 get_table("12711-0020")
 #> <GENESIS data/tablefile?username=***&password=***&name=12711-0020&area=free&compress=false&startyear=1900&endyear=2100&language=en&format=ffcsv>
 #> # A tibble: 3,213 × 20
@@ -108,7 +108,7 @@ get_table("12711-0020")
 #> #   3_Auspraegung_Label <chr>, BEV013__Zuzuege__Anzahl <dbl>,
 #> #   BEV014__Fortzuege__Anzahl <dbl>, BEV015__Wanderungssaldo__Anzahl <dbl>
 
-# Get metadata about variables in the table
+# Get metadata about a variable in the table
 metadata_variable("DLAND")
 #> <GENESIS metadata/variable?username=***&password=***&name=DLAND&area=free&language=en>
 #> Code          DLAND
@@ -118,13 +118,28 @@ metadata_variable("DLAND")
 #> Validity.From 1950-01-01
 #> Updated       2018-10-29 17:13:39h
 
-metadata_variable("BEV015")
-#> <GENESIS metadata/variable?username=***&password=***&name=BEV015&area=free&language=en>
-#> Code    BEV015
-#> Content Migration balance
-#> Type    Value
-#> Values  -1
-#> Updated 2020-11-19 15:44:16h
+# List values of this variable
+catalogue_values_by_variable("DLAND")
+#> <GENESIS catalogue/values2variable?username=***&password=***&name=DLAND&area=free&searchcriterion=code&sortcriterion=code&pagelength=100&language=en>
+#> # A tibble: 16 × 4
+#>    Code  Content                Variables Information
+#>    <chr> <chr>                  <chr>     <chr>      
+#>  1 08    Baden-Württemberg      8         false      
+#>  2 09    Bayern                 8         false      
+#>  3 11    Berlin                 10        false      
+#>  4 12    Brandenburg            8         false      
+#>  5 04    Bremen                 11        false      
+#>  6 02    Hamburg                11        false      
+#>  7 06    Hessen                 8         false      
+#>  8 13    Mecklenburg-Vorpommern 11        false      
+#>  9 03    Niedersachsen          9         false      
+#> 10 05    Nordrhein-Westfalen    9         false      
+#> 11 07    Rheinland-Pfalz        8         false      
+#> 12 10    Saarland               10        false      
+#> 13 14    Sachsen                8         false      
+#> 14 15    Sachsen-Anhalt         10        false      
+#> 15 01    Schleswig-Holstein     11        false      
+#> 16 16    Thüringen              10        false
 ```
 
 ## Caching

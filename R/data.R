@@ -6,6 +6,11 @@
 #' @param startyear,endyear Only retrieve data between these years
 #' @param timeslices Number of latest time slices to retrieve --
 #'   independent of/cumulative to `startyear` and `endyear`
+#' @param regionalvariable Code of the regional variable whose value is
+#'   specified in `regionalkey` to filter the results
+#' @param regionalkey One or more regional keys. Multiple values can be supplied
+#'   as a character vector or as a single string, with the regional keys
+#'   separated by commas. Use of wildcard (*) possible.
 #' @param stand Only retrieve data updated after this date (dd.mm.yyyy)
 #'
 #' @inherit catalogue_tables_by_variable params return
@@ -15,6 +20,10 @@
 #' @examples
 #' \dontrun{
 #' get_table("12411-0001", startyear = 1960, endyear = 1969)
+#'
+#' # Filter results by region
+#' # ("KREISE": administrative districts; "01001": Flensburg)
+#' get_table("12411-0015", regionalvariable = "KREISE", regionalkey = "01001")
 #' }
 get_table <- function(name,
                       area = c("free", "user", "all"),
@@ -22,12 +31,15 @@ get_table <- function(name,
                       startyear = 1900,
                       endyear = 2100,
                       timeslices = NULL,
+                      regionalvariable = NULL,
+                      regionalkey = NULL,
                       stand = NULL,
                       language = "en") {
   check_str_len1(name)
   check_year(startyear)
   check_year(endyear)
   check_num_len1(timeslices)
+  check_str_len1(regionalvariable)
   check_language(language)
 
   creds <- retrieve_login_data()
@@ -41,6 +53,8 @@ get_table <- function(name,
     startyear = startyear,
     endyear = endyear,
     timeslices = timeslices,
+    regionalvariable = regionalvariable,
+    regionalkey = collapse_str(regionalkey),
     stand = stand,
     language = language,
     format = "ffcsv"
@@ -50,11 +64,11 @@ get_table <- function(name,
 
   tryCatch({ return(make_genesis_tbl(resp)) }, error = function(e) NULL)
 
-  print_url(resp$response$url)
-
   if (requireNamespace("tibble", quietly = TRUE)) {
-    invisible(tibble::tibble())
+    resp$content <- tibble::tibble()
   } else {
-    invisible(data.frame())
+    resp$content <- data.frame()
   }
+
+  make_genesis_tbl(resp)
 }

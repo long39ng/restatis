@@ -17,7 +17,7 @@ lgl_to_str <- function(x) {
 }
 
 collapse_str <- function(x) {
-  stopifnot(is.character(x))
+  stopifnot(is.null(x) || is.character(x))
   paste0(x, collapse = ",")
 }
 

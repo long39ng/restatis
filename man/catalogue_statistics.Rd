@@ -2,7 +2,7 @@
 % Please edit documentation in R/catalogue-statistics.R
 \name{catalogue_statistics}
 \alias{catalogue_statistics}
-\title{Statistics catalogue}
+\title{Statistic catalogue}
 \usage{
 catalogue_statistics(
   selection,

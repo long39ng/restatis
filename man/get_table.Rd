@@ -13,6 +13,7 @@ get_table(
   timeslices = NULL,
   regionalvariable = NULL,
   regionalkey = NULL,
+  job = FALSE,
   stand = NULL,
   language = "en"
 )
@@ -39,6 +40,8 @@ specified in \code{regionalkey} to filter the results}
 \item{regionalkey}{One or more regional keys. Multiple values can be supplied
 as a character vector or as a single string, with the regional keys
 separated by commas. Use of wildcard (*) possible.}
+
+\item{job}{Should a job be created if the table cannot be created immediately?}
 
 \item{stand}{Only retrieve data updated after this date (dd.mm.yyyy)}
 

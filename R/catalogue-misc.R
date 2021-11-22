@@ -1,3 +1,23 @@
+#' Job catalogue
+#'
+#' Retrieves list of processing jobs (e.g. very large table retrievals)
+#'
+#' @inherit catalogue_variables params return
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' catalogue_modifieddata(date = format(Sys.Date() - 30, "%d.%m.%Y"))
+#' }
+catalogue_jobs <- function(sortcriterion = c("type", "status", "time"),
+                           pagelength = 100,
+                           language = "en") {
+  sortcriterion <- match.arg(sortcriterion)
+  do.call(catalogue_, c(as.list(environment()), method = "jobs"))
+}
+
+
 #' Modified data catalogue
 #'
 #' Retrieves list of tables according to selection

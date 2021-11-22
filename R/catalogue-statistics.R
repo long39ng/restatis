@@ -1,4 +1,4 @@
-#' Statistics catalogue
+#' Statistic catalogue
 #'
 #' Retrieves list of statistics according to selection
 #'

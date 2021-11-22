@@ -11,6 +11,7 @@
 #' @param regionalkey One or more regional keys. Multiple values can be supplied
 #'   as a character vector or as a single string, with the regional keys
 #'   separated by commas. Use of wildcard (*) possible.
+#' @param job Should a job be created if the table cannot be created immediately?
 #' @param stand Only retrieve data updated after this date (dd.mm.yyyy)
 #'
 #' @inherit catalogue_tables_by_variable params return
@@ -33,14 +34,20 @@ get_table <- function(name,
                       timeslices = NULL,
                       regionalvariable = NULL,
                       regionalkey = NULL,
+                      job = FALSE,
                       stand = NULL,
                       language = "en") {
   check_str_len1(name)
+  check_language(language)
+
+  if (grepl(".+_\\d+$", name)) {
+    return(get_table_from_job(name, area, compress, language))
+  }
+
   check_year(startyear)
   check_year(endyear)
   check_num_len1(timeslices)
   check_str_len1(regionalvariable)
-  check_language(language)
 
   creds <- retrieve_login_data()
 
@@ -55,6 +62,7 @@ get_table <- function(name,
     timeslices = timeslices,
     regionalvariable = regionalvariable,
     regionalkey = collapse_str(regionalkey),
+    job = lgl_to_str(job),
     stand = stand,
     language = language,
     format = "ffcsv"
@@ -70,5 +78,37 @@ get_table <- function(name,
     resp$content <- data.frame()
   }
 
-  make_genesis_tbl(resp)
+  invisible(make_genesis_tbl(resp))
+}
+
+get_table_from_job <- function(name,
+                               area = c("free", "user", "all"),
+                               compress = FALSE,
+                               language = "en") {
+  check_str_len1(name)
+  check_language(language)
+
+  creds <- retrieve_login_data()
+
+  query <- list(
+    username = creds$username,
+    password = creds$password,
+    name = name,
+    area = match.arg(area),
+    compress = lgl_to_str(compress),
+    language = language,
+    format = "ffcsv"
+  )
+
+  resp <- genesis_api("data/resultfile", query)
+
+  tryCatch({ return(make_genesis_tbl(resp)) }, error = function(e) NULL)
+
+  if (requireNamespace("tibble", quietly = TRUE)) {
+    resp$content <- tibble::tibble()
+  } else {
+    resp$content <- data.frame()
+  }
+
+  invisible(make_genesis_tbl(resp))
 }

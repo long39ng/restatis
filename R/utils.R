@@ -104,6 +104,29 @@ print_status <- function(api_resp) {
     error = function(e) FALSE,
     warning = function(w) FALSE
   )) {
+    api_resp$content$Status$Type <- switch(
+      api_resp$content$Status$Type,
+      Fehler = "Error",
+      Warnung = "Warning",
+      api_resp$content$Status$Type
+    )
+
+    if (api_resp$content$Status$Code == 98L) {
+      api_resp$content$Status$Content <- paste0(
+        "This table is too big for dialogue-processing. ",
+        "Please run `get_table()` with the parameter ",
+        "`job = TRUE` to start background-processing.\n\n",
+        "Run `catalogue_jobs()` to list your processing jobs."
+      )
+    }
+
+    if (api_resp$content$Status$Code == 99L) {
+      api_resp$content$Status$Content <- paste0(
+        api_resp$content$Status$Content,
+        "\n\nRun `catalogue_jobs()` to list your processing jobs."
+      )
+    }
+
     message(api_resp$content$Status$Type, ": ", api_resp$content$Status$Content)
   }
 }

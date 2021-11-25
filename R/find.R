@@ -8,6 +8,8 @@
 #' @param language Search terms, returned messages and data descriptions
 #'   in German ("de") or English ("en")?
 #'
+#' @inheritParams set_login_data
+#'
 #' @seealso catalogue_terms
 #'
 #' @return A `data.frame` (or `tbl_df` if tibble package is installed)
@@ -18,37 +20,48 @@
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' search_statistics("Abfall", pagelength = 6, language = "de")
 #'
 #' search_variables("vote")
 #' }
-search_tables <- function(term, pagelength = 100, language = "en") {
-  search_(category = "tables", term, pagelength, language)
+search_tables <- function(term,
+                          pagelength = 100,
+                          language = "en",
+                          genesis = getOption("genesis")) {
+  search_(category = "tables", term, pagelength, language, genesis)
 }
 
 #' @rdname search_
 #'
 #' @export
-search_statistics <- function(term, pagelength = 100, language = "en") {
-  search_(category = "statistics", term, pagelength, language)
+search_statistics <- function(term,
+                              pagelength = 100,
+                              language = "en",
+                              genesis = getOption("genesis")) {
+  search_(category = "statistics", term, pagelength, language, genesis)
 }
 
 #' @rdname search_
 #'
 #' @export
-search_variables <- function(term, pagelength = 100, language = "en") {
-  search_(category = "variables", term, pagelength, language)
+search_variables <- function(term,
+                             pagelength = 100,
+                             language = "en",
+                             genesis = getOption("genesis")) {
+  search_(category = "variables", term, pagelength, language, genesis)
 }
 
 search_ <- function(category = c("tables", "statistics", "variables", "cubes", "time-series"),
                     term = NULL,
                     pagelength = NULL,
-                    language = NULL) {
+                    language = NULL,
+                    genesis) {
   check_str_len1(term)
   check_pagelength(pagelength)
   check_language(language)
 
-  creds <- retrieve_login_data()
+  creds <- retrieve_login_data(genesis)
 
   categories <- c("Tables", "Statistics", "Variables", "Cubes", "Timeseries")
   names(categories) <- c("tables", "statistics", "variables", "cubes", "time-series")
@@ -62,5 +75,5 @@ search_ <- function(category = c("tables", "statistics", "variables", "cubes", "
     language = language
   )
 
-  make_genesis_tbl(genesis_api("find/find", query), categories[category])
+  make_genesis_tbl(genesis_api("find/find", query, genesis), categories[category])
 }

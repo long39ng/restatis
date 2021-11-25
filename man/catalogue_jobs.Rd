@@ -7,7 +7,8 @@
 catalogue_jobs(
   sortcriterion = c("type", "status", "time"),
   pagelength = 100,
-  language = "en"
+  language = "en",
+  genesis = getOption("genesis")
 )
 }
 \arguments{
@@ -17,15 +18,18 @@ catalogue_jobs(
 
 \item{language}{Search terms, returned messages and data descriptions
 in German ("de") or English ("en")?}
+
+\item{genesis}{Which GENESIS database should be used?
+
+One of: "destatis", "regionalstatistik", "bildungsmonitoring", "bayern", "nrw", "sachsen-anhalt".
+
+A default value can also be set to the global option \code{genesis} via
+\code{\link[=options]{options()}}, e.g. \code{options(genesis = "destatis")}, so that \code{genesis}
+does not have to be specified in the function call.}
 }
 \value{
 A \code{data.frame} (or \code{tbl_df} if tibble package is installed)
 }
 \description{
 Retrieves list of processing jobs (e.g. very large table retrievals)
-}
-\examples{
-\dontrun{
-catalogue_modifieddata(date = format(Sys.Date() - 30, "\%d.\%m.\%Y"))
-}
 }

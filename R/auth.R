@@ -1,33 +1,45 @@
-#' Set your GENESIS username and password
+#' Set your username and password
 #'
-#' Sets the username and password used to log in to www-genesis.destatis.de.
+#' Saves the login data for a GENESIS web service
 #'
-#' Login data are stored with the [keyring][keyring-package] package. Use [keyring::key_list()]
-#' to get an overview of the stored credentials.
+#' Login data are stored with the [keyring][keyring-package] package.
+#'   Run `keyring::key_list(keyring = "restatis")` to get an overview of the stored credentials.
+#'
+#' @param genesis Which GENESIS database should be used?
+#'
+#'   One of: "`r paste0(dbs, collapse = "\", \"")`".
+#'
+#'   A default value can also be set to the global option `genesis` via
+#'   [options()], e.g. `options(genesis = "destatis")`, so that `genesis`
+#'   does not have to be specified in the function call.
 #'
 #' @seealso [`login_check`]
 #'
 #' @export
-set_login_data <- function() {
-  username <- askpass::askpass("Username: ")
+set_login_data <- function(genesis = getOption("genesis")) {
+  check_genesis(genesis)
+
+  unlock_keyring()
+  username <- askpass::askpass(paste(toupper(genesis), "username: "))
 
   if (is.null(username)) {
     stop("Entry cancelled/empty username", call. = FALSE)
   }
 
-  unlock_keyring()
-  keyring::key_set("destatis", username)
+  keyring::key_set(genesis, username, keyring = "restatis")
 }
 
 #' Login check
 #'
 #' Tests if the login with the saved username and password was sucessful
 #'
+#' @inheritParams set_login_data
+#'
 #' @seealso [`set_login_data`]
 #'
 #' @export
-login_check <- function() {
-  login_data <- retrieve_login_data()
+login_check <- function(genesis = getOption("genesis")) {
+  login_data <- retrieve_login_data(genesis)
 
   query <- list(
     username = login_data$username,
@@ -35,23 +47,29 @@ login_check <- function() {
     language = "en"
   )
 
-  make_genesis_list(genesis_api("helloworld/logincheck", query))
+  make_genesis_list(genesis_api("helloworld/logincheck", query, genesis))
 }
 
-retrieve_login_data <- function() {
+retrieve_login_data <- function(genesis) {
+  check_genesis(genesis)
+
   unlock_keyring()
-  available_usernames <- keyring::key_list("destatis")[["username"]]
+  available_usernames <- keyring::key_list(genesis, keyring = "restatis")$username
 
   if (length(available_usernames) == 0L) {
-    stop(call. = FALSE, paste0(
-      "GENESIS login data not found.\n",
+    stop(
+      toupper(genesis),
+      " login data not found.\n",
       "Run `set_login_data()` to save your username and password.\n",
-      "(Register at https://www-genesis.destatis.de if you don't have an account yet.)"
-    ))
+      "(Register at ",
+      httr::parse_url(base_url(genesis))$hostname,
+      " if you don't have an account yet.)",
+      call. = FALSE
+    )
   }
 
   username <- available_usernames[[length(available_usernames)]]
-  password <- keyring::key_get("destatis", username)
+  password <- keyring::key_get(genesis, username, keyring = "restatis")
 
   list(username = username, password = password)
 }

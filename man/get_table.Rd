@@ -13,9 +13,10 @@ get_table(
   timeslices = NULL,
   regionalvariable = NULL,
   regionalkey = NULL,
-  job = FALSE,
+  job = NULL,
   stand = NULL,
-  language = "en"
+  language = "en",
+  genesis = getOption("genesis")
 )
 }
 \arguments{
@@ -47,6 +48,14 @@ separated by commas. Use of wildcard (*) possible.}
 
 \item{language}{Search terms, returned messages and data descriptions
 in German ("de") or English ("en")?}
+
+\item{genesis}{Which GENESIS database should be used?
+
+One of: "destatis", "regionalstatistik", "bildungsmonitoring", "bayern", "nrw", "sachsen-anhalt".
+
+A default value can also be set to the global option \code{genesis} via
+\code{\link[=options]{options()}}, e.g. \code{options(genesis = "destatis")}, so that \code{genesis}
+does not have to be specified in the function call.}
 }
 \value{
 A \code{data.frame} (or \code{tbl_df} if tibble package is installed)
@@ -56,10 +65,18 @@ Retrieves a data table based on the name of the table
 }
 \examples{
 \dontrun{
+options(genesis = "destatis")
 get_table("12411-0001", startyear = 1960, endyear = 1969)
-
 # Filter results by region
 # ("KREISE": administrative districts; "01001": Flensburg)
 get_table("12411-0015", regionalvariable = "KREISE", regionalkey = "01001")
+
+options(genesis = "regionalstatistik")
+# Get large table by creating a background processing job
+get_table("12711-01-03-4", job = TRUE)
+# List jobs you've created
+catalogue_jobs()
+# After the job is finished, you can retrieve the table with `get_table()`
+# with `name` set to the name of the job.
 }
 }

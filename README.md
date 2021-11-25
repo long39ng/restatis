@@ -13,8 +13,15 @@ status](https://www.r-pkg.org/badges/version/restatis)](https://CRAN.R-project.o
 <!-- badges: end -->
 
 {restatis} is a wrapper around the RESTful API that provides access to
-data from the [Federal Statistical Office of Germany
-(Destatis)](https://www-genesis.destatis.de/).
+the “GENESIS” databases of the Federal Statistical Office of Germany
+(Destatis):
+
+-   <https://www-genesis.destatis.de>
+-   <https://www.regionalstatistik.de>
+-   <https://www.bildungsmonitoring.de>
+-   <https://www.statistikdaten.bayern.de>
+-   <https://www.landesdatenbank.nrw.de>
+-   <https://genesis.sachsen-anhalt.de>
 
 ## Installation
 
@@ -26,10 +33,11 @@ remotes::install_github("long39ng/restatis")
 
 ## Usage
 
-To use most functionality of the package, you need to have an account at
-<https://www-genesis.destatis.de> and store your username and password
-using `set_login_data()`.[1] You can run `login_check()` to see if you
-can access the API with the saved credentials.
+To use most functionality of the package, you need to create an account
+at the corresponding website of a GENESIS database and save your
+username and password with `set_login_data()`.[1] You can run
+`login_check()` to see if you can access the API with the saved
+credentials.
 
 Features of {restatis} include searching for data using keywords
 (e.g. `search_statistics()`) or the GENESIS catalogue
@@ -40,8 +48,11 @@ Features of {restatis} include searching for data using keywords
 ``` r
 library(restatis)
 
+# Set the GENESIS database you want to access via global options
+options(genesis = "destatis")
+
 search_statistics("migration")
-#> <GENESIS find/find?username=***&password=***&term=migration&category=statistics&pagelength=100&language=en>
+#> <DESTATIS find/find?username=***&password=***&term=migration&category=statistics&pagelength=100&language=en>
 #> # A tibble: 4 × 4
 #>   Code  Content                  Cubes Information
 #>   <chr> <chr>                    <chr> <chr>      
@@ -52,7 +63,7 @@ search_statistics("migration")
 
 # Get metadata about "Migration statistics"
 metadata_statistic("12711")
-#> <GENESIS metadata/statistic?username=***&password=***&name=12711&area=free&language=en>
+#> <DESTATIS metadata/statistic?username=***&password=***&name=12711&area=free&language=en>
 #> Code           12711
 #> Content        Migration statistics
 #> Cubes          46
@@ -64,7 +75,7 @@ metadata_statistic("12711")
 
 # List tables in "Migration statistics"
 catalogue_tables_by_statistic("12711")
-#> <GENESIS catalogue/tables2statistic?username=***&password=***&name=12711&area=free&pagelength=100&language=en>
+#> <DESTATIS catalogue/tables2statistic?username=***&password=***&name=12711&area=free&pagelength=100&language=en>
 #> # A tibble: 16 × 3
 #>    Code       Content                                          Time             
 #>    <chr>      <chr>                                            <chr>            
@@ -87,7 +98,7 @@ catalogue_tables_by_statistic("12711")
 
 # Get the table "Migration between the Länder..."
 get_table("12711-0020")
-#> <GENESIS data/tablefile?username=***&password=***&name=12711-0020&area=free&compress=false&startyear=1900&endyear=2100&language=en&format=ffcsv>
+#> <DESTATIS data/tablefile?username=***&password=***&name=12711-0020&area=free&compress=false&startyear=1900&endyear=2100&language=en&format=ffcsv>
 #> # A tibble: 3,213 × 20
 #>    Statistik_Code Statistik_Label    Zeit_Code Zeit_Label Zeit  `1_Merkmal_Code`
 #>             <dbl> <chr>              <chr>     <chr>      <chr> <chr>           
@@ -110,7 +121,7 @@ get_table("12711-0020")
 
 # Get metadata about a variable in the table
 metadata_variable("DLAND")
-#> <GENESIS metadata/variable?username=***&password=***&name=DLAND&area=free&language=en>
+#> <DESTATIS metadata/variable?username=***&password=***&name=DLAND&area=free&language=en>
 #> Code          DLAND
 #> Content       Länder
 #> Type          Regional
@@ -120,7 +131,7 @@ metadata_variable("DLAND")
 
 # List values of this variable
 catalogue_values_by_variable("DLAND")
-#> <GENESIS catalogue/values2variable?username=***&password=***&name=DLAND&area=free&searchcriterion=code&sortcriterion=code&pagelength=100&language=en>
+#> <DESTATIS catalogue/values2variable?username=***&password=***&name=DLAND&area=free&searchcriterion=code&sortcriterion=code&pagelength=100&language=en>
 #> # A tibble: 16 × 4
 #>    Code  Content                Variables Information
 #>    <chr> <chr>                  <chr>     <chr>      

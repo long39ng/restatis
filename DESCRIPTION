@@ -4,7 +4,14 @@ Version: 0.1.0.9000
 Authors@R: 
     person("Long", "Nguyen", , "long.nguyen@uni-bielefeld.de", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-8878-7386"))
-Description: Enables access to data from the Federal Statistical Office of Germany (Destatis – <https://www-genesis.destatis.de/>) via their RESTful web service interface.
+Description: A RESTful API wrapper to access to the "GENESIS" databases
+    of the Federal Statistical Office of Germany (Destatis): 
+    1) <https://www-genesis.destatis.de>, 
+    2) <https://www.regionalstatistik.de>, 
+    3) <https://www.bildungsmonitoring.de>, 
+    4) <https://www.statistikdaten.bayern.de>, 
+    5) <https://www.landesdatenbank.nrw.de>, 
+    6) <https://genesis.sachsen-anhalt.de>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

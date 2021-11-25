@@ -4,11 +4,19 @@
 \alias{catalogue_qualitysigns}
 \title{Quality indicator catalogue}
 \usage{
-catalogue_qualitysigns(language = "en")
+catalogue_qualitysigns(language = "en", genesis = getOption("genesis"))
 }
 \arguments{
 \item{language}{Search terms, returned messages and data descriptions
 in German ("de") or English ("en")?}
+
+\item{genesis}{Which GENESIS database should be used?
+
+One of: "destatis", "regionalstatistik", "bildungsmonitoring", "bayern", "nrw", "sachsen-anhalt".
+
+A default value can also be set to the global option \code{genesis} via
+\code{\link[=options]{options()}}, e.g. \code{options(genesis = "destatis")}, so that \code{genesis}
+does not have to be specified in the function call.}
 }
 \value{
 A \code{data.frame} (or \code{tbl_df} if tibble package is installed)

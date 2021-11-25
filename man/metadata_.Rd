@@ -7,13 +7,33 @@
 \alias{metadata_variable}
 \title{Get metadata}
 \usage{
-metadata_statistic(name, area = c("free", "user", "all"), language = "en")
+metadata_statistic(
+  name,
+  area = c("free", "user", "all"),
+  language = "en",
+  genesis = getOption("genesis")
+)
 
-metadata_table(name, area = c("free", "user", "all"), language = "en")
+metadata_table(
+  name,
+  area = c("free", "user", "all"),
+  language = "en",
+  genesis = getOption("genesis")
+)
 
-metadata_value(name, area = c("free", "user", "all"), language = "en")
+metadata_value(
+  name,
+  area = c("free", "user", "all"),
+  language = "en",
+  genesis = getOption("genesis")
+)
 
-metadata_variable(name, area = c("free", "user", "all"), language = "en")
+metadata_variable(
+  name,
+  area = c("free", "user", "all"),
+  language = "en",
+  genesis = getOption("genesis")
+)
 }
 \arguments{
 \item{name}{Code of the variable (e.g. retrieved using \link{catalogue_variables})}
@@ -26,12 +46,21 @@ metadata_variable(name, area = c("free", "user", "all"), language = "en")
 
 \item{language}{Search terms, returned messages and data descriptions
 in German ("de") or English ("en")?}
+
+\item{genesis}{Which GENESIS database should be used?
+
+One of: "destatis", "regionalstatistik", "bildungsmonitoring", "bayern", "nrw", "sachsen-anhalt".
+
+A default value can also be set to the global option \code{genesis} via
+\code{\link[=options]{options()}}, e.g. \code{options(genesis = "destatis")}, so that \code{genesis}
+does not have to be specified in the function call.}
 }
 \description{
 Retrieves metadata for a statistic, table, variable or value
 }
 \examples{
 \dontrun{
+options(genesis = "destatis")
 metadata_statistic("12411")
 metadata_table("12411-0001")
 metadata_variable("KREISE")

@@ -10,6 +10,7 @@
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' metadata_statistic("12411")
 #' metadata_table("12411-0001")
 #' metadata_variable("KREISE")
@@ -17,8 +18,9 @@
 #' }
 metadata_statistic <- function(name,
                                area = c("free", "user", "all"),
-                               language = "en") {
-  metadata_("statistic", name, match.arg(area), language)
+                               language = "en",
+                               genesis = getOption("genesis")) {
+  metadata_("statistic", name, match.arg(area), language, genesis)
 }
 
 #' @rdname metadata_
@@ -26,8 +28,9 @@ metadata_statistic <- function(name,
 #' @export
 metadata_table <- function(name,
                            area = c("free", "user", "all"),
-                           language = "en") {
-  metadata_("table", name, match.arg(area), language)
+                           language = "en",
+                           genesis = getOption("genesis")) {
+  metadata_("table", name, match.arg(area), language, genesis)
 }
 
 #' @rdname metadata_
@@ -35,8 +38,9 @@ metadata_table <- function(name,
 #' @export
 metadata_value <- function(name,
                            area = c("free", "user", "all"),
-                           language = "en") {
-  metadata_("value", name, match.arg(area), language)
+                           language = "en",
+                           genesis = getOption("genesis")) {
+  metadata_("value", name, match.arg(area), language, genesis)
 }
 
 #' @rdname metadata_
@@ -44,18 +48,20 @@ metadata_value <- function(name,
 #' @export
 metadata_variable <- function(name,
                               area = c("free", "user", "all"),
-                              language = "en") {
-  metadata_("variable", name, match.arg(area), language)
+                              language = "en",
+                              genesis = getOption("genesis")) {
+  metadata_("variable", name, match.arg(area), language, genesis)
 }
 
 metadata_ <- function(method,
                       name = NULL,
                       area = NULL,
-                      language = NULL) {
+                      language = NULL,
+                      genesis) {
   check_str_len1(name)
   check_language(language)
 
-  creds <- retrieve_login_data()
+  creds <- retrieve_login_data(genesis)
 
   query <- list(
     username = creds$username,
@@ -65,5 +71,5 @@ metadata_ <- function(method,
     language = language
   )
 
-  make_genesis_list(genesis_api(paste0("metadata/", method), query), "Object")
+  make_genesis_list(genesis_api(paste0("metadata/", method), query, genesis), "Object")
 }

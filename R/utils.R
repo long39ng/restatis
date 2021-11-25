@@ -8,10 +8,16 @@ discard_empty <- function(x) {
 }
 
 unlock_keyring <- function() {
-  if (keyring::keyring_is_locked()) keyring::keyring_unlock()
+  if (!"restatis" %in% keyring::keyring_list()$keyring) {
+    keyring::keyring_create("restatis")
+  }
+  if (keyring::keyring_is_locked("restatis")) {
+    keyring::keyring_unlock("restatis")
+  }
 }
 
 lgl_to_str <- function(x) {
+  x <- x %||% FALSE
   stopifnot(is.logical(x) && length(x) == 1L && !is.na(x))
   tolower(x)
 }
@@ -19,6 +25,15 @@ lgl_to_str <- function(x) {
 collapse_str <- function(x) {
   stopifnot(is.null(x) || is.character(x))
   paste0(x, collapse = ",")
+}
+
+check_genesis <- function(genesis) {
+  if(length(genesis) != 1L || !genesis %in% dbs) {
+    stop(
+      "genesis must be one of: \"", paste0(dbs, collapse = "\", \""), "\".",
+      call. = FALSE
+    )
+  }
 }
 
 check_num_len1 <- function(x) {
@@ -55,11 +70,6 @@ check_resp_type <- function(resp, type) {
   }
 }
 
-trim_url <- function(url) {
-  url <- sub(base_url, "", url, fixed = TRUE)
-  sub("username=([^&]+)&password=([^&]+)", "username=***&password=***", url)
-}
-
 make_genesis_list <- function(api_resp, element) {
   print_status(api_resp)
 
@@ -94,8 +104,17 @@ make_genesis_class <- function(x, class, url) {
   x
 }
 
+trim_url <- function(url) {
+  url <- sub("^.+2020/", "", url)
+  sub("username=([^&]+)&password=([^&]+)", "username=***&password=***", url)
+}
+
+genesis_from_url <- function(url) {
+  dbs[[which(vapply(paste0(dbs, ".de"), grepl, logical(1L), url))]]
+}
+
 print_url <- function(url) {
-  cat("<GENESIS ", trim_url(url), ">\n", sep = "")
+  cat("<", toupper(genesis_from_url(url)), " ", trim_url(url), ">\n", sep = "")
 }
 
 print_status <- function(api_resp) {
@@ -104,6 +123,29 @@ print_status <- function(api_resp) {
     error = function(e) FALSE,
     warning = function(w) FALSE
   )) {
+    api_resp$content$Status$Type <- switch(
+      api_resp$content$Status$Type,
+      Fehler = "Error",
+      Warnung = "Warning",
+      api_resp$content$Status$Type
+    )
+
+    if (api_resp$content$Status$Code == 98L) {
+      api_resp$content$Status$Content <- paste0(
+        "This table is too big for dialogue-processing.\n",
+        "Please run `get_table()` with the parameter ",
+        "`job = TRUE` to start background-processing.\n\n",
+        "(Run `catalogue_jobs()` to list your processing jobs.)"
+      )
+    }
+
+    if (api_resp$content$Status$Code == 99L) {
+      api_resp$content$Status$Content <- paste0(
+        api_resp$content$Status$Content,
+        "\n\n(Run `catalogue_jobs()` to list your processing jobs.)"
+      )
+    }
+
     message(api_resp$content$Status$Type, ": ", api_resp$content$Status$Content)
   }
 }

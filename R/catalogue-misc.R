@@ -1,3 +1,19 @@
+#' Job catalogue
+#'
+#' Retrieves list of processing jobs (e.g. very large table retrievals)
+#'
+#' @inherit catalogue_variables params return
+#'
+#' @export
+catalogue_jobs <- function(sortcriterion = c("type", "status", "time"),
+                           pagelength = 100,
+                           language = "en",
+                           genesis = getOption("genesis")) {
+  sortcriterion <- match.arg(sortcriterion)
+  do.call(catalogue_, c(as.list(environment()), method = "jobs"))
+}
+
+
 #' Modified data catalogue
 #'
 #' Retrieves list of tables according to selection
@@ -11,12 +27,14 @@
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' catalogue_modifieddata(date = format(Sys.Date() - 30, "%d.%m.%Y"))
 #' }
 catalogue_modifieddata <- function(selection = NULL,
                                    date = "01.01.1970",
                                    pagelength = 100,
-                                   language = "en") {
+                                   language = "en",
+                                   genesis = getOption("genesis")) {
   do.call(catalogue_, c(as.list(environment()), method = "modifieddata"))
 }
 
@@ -27,7 +45,8 @@ catalogue_modifieddata <- function(selection = NULL,
 #' @inherit catalogue_variables params return
 #'
 #' @export
-catalogue_qualitysigns <- function(language = "en") {
+catalogue_qualitysigns <- function(language = "en",
+                                   genesis = getOption("genesis")) {
   do.call(catalogue_, c(as.list(environment()), method = "qualitysigns"))
 }
 
@@ -44,12 +63,14 @@ catalogue_qualitysigns <- function(language = "en") {
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' catalogue_tables("124*")
 #' }
 catalogue_tables <- function(selection,
                              area = c("free", "user", "all"),
                              pagelength = 100,
-                             language = "en") {
+                             language = "en",
+                             genesis = getOption("genesis")) {
   area <- match.arg(area)
   do.call(catalogue_, c(as.list(environment()), method = "tables"))
 }
@@ -64,11 +85,13 @@ catalogue_tables <- function(selection,
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' catalogue_terms("schu*", language = "de")
 #' }
 catalogue_terms <- function(selection,
                             pagelength = 100,
-                            language = "en") {
+                            language = "en",
+                            genesis = getOption("genesis")) {
   do.call(catalogue_, c(as.list(environment()), method = "terms"))
 }
 
@@ -82,13 +105,15 @@ catalogue_terms <- function(selection,
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' catalogue_values("*baden*", searchcriterion = "content")
 #' }
 catalogue_values <- function(selection,
                              searchcriterion = c("code", "content"),
                              sortcriterion = c("code", "content"),
                              pagelength = 100,
-                             language = "en") {
+                             language = "en",
+                             genesis = getOption("genesis")) {
   searchcriterion <- match.arg(searchcriterion)
   sortcriterion <- match.arg(sortcriterion)
   do.call(catalogue_, c(as.list(environment()), method = "values"))
@@ -102,14 +127,15 @@ catalogue_ <- function(method,
                        sortcriterion = NULL,
                        date = NULL,
                        pagelength = NULL,
-                       language = NULL) {
+                       language = NULL,
+                       genesis) {
   check_str_len1(name)
   check_str_len1(selection)
   check_str_len1(date)
   check_pagelength(pagelength)
   check_language(language)
 
-  creds <- retrieve_login_data()
+  creds <- retrieve_login_data(genesis)
 
   query <- list(
     username = creds$username,
@@ -124,5 +150,5 @@ catalogue_ <- function(method,
     language = language
   )
 
-  make_genesis_tbl(genesis_api(paste0("catalogue/", method), query), "List")
+  make_genesis_tbl(genesis_api(paste0("catalogue/", method), query, genesis), "List")
 }

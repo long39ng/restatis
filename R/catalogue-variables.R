@@ -17,6 +17,7 @@
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' catalogue_variables("FA*")
 #' }
 catalogue_variables <- function(selection,
@@ -24,7 +25,8 @@ catalogue_variables <- function(selection,
                                 searchcriterion = c("code", "content"),
                                 sortcriterion = c("code", "content"),
                                 pagelength = 100,
-                                language = "en") {
+                                language = "en",
+                                genesis = getOption("genesis")) {
   area <- match.arg(area)
   searchcriterion <- match.arg(searchcriterion)
   sortcriterion <- match.arg(sortcriterion)
@@ -43,6 +45,7 @@ catalogue_variables <- function(selection,
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' catalogue_statistics_by_variable("KREISE")
 #' }
 catalogue_statistics_by_variable <- function(name,
@@ -51,7 +54,8 @@ catalogue_statistics_by_variable <- function(name,
                                              searchcriterion = c("code", "content"),
                                              sortcriterion = c("code", "content"),
                                              pagelength = 100,
-                                             language = "en") {
+                                             language = "en",
+                                             genesis = getOption("genesis")) {
   area <- match.arg(area)
   searchcriterion <- match.arg(searchcriterion)
   sortcriterion <- match.arg(sortcriterion)
@@ -68,13 +72,15 @@ catalogue_statistics_by_variable <- function(name,
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' catalogue_tables_by_variable("KREISE")
 #' }
 catalogue_tables_by_variable <- function(name,
                                          selection = NULL,
                                          area = c("free", "user", "all"),
                                          pagelength = 100,
-                                         language = "en") {
+                                         language = "en",
+                                         genesis = getOption("genesis")) {
   area <- match.arg(area)
   do.call(catalogue_, c(as.list(environment()), method = "tables2variable"))
 }
@@ -89,6 +95,7 @@ catalogue_tables_by_variable <- function(name,
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' catalogue_values_by_variable("KREISE", pagelength = 1000)
 #' }
 catalogue_values_by_variable <- function(name,
@@ -97,7 +104,8 @@ catalogue_values_by_variable <- function(name,
                                          searchcriterion = c("code", "content"),
                                          sortcriterion = c("code", "content"),
                                          pagelength = 100,
-                                         language = "en") {
+                                         language = "en",
+                                         genesis = getOption("genesis")) {
   area <- match.arg(area)
   searchcriterion <- match.arg(searchcriterion)
   sortcriterion <- match.arg(sortcriterion)

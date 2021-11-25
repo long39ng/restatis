@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Catalogue of statistics related to a variable — catalogue_statistics_by_variable • restatis</title>
+<title>Job catalogue — catalogue_jobs • restatis</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Catalogue of statistics related to a variable — catalogue_statistics_by_variable" />
-<meta property="og:description" content="Retrieves list of statistics based on variable name" />
+<meta property="og:title" content="Job catalogue — catalogue_jobs" />
+<meta property="og:description" content="Retrieves list of processing jobs (e.g. very large table retrievals)" />
 
 
 
@@ -108,21 +108,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Catalogue of statistics related to a variable</h1>
-    <small class="dont-index">Source: <a href='https://github.com/long39ng/restatis/blob/master/R/catalogue-variables.R'><code>R/catalogue-variables.R</code></a></small>
-    <div class="hidden name"><code>catalogue_statistics_by_variable.Rd</code></div>
+    <h1>Job catalogue</h1>
+    <small class="dont-index">Source: <a href='https://github.com/long39ng/restatis/blob/master/R/catalogue-misc.R'><code>R/catalogue-misc.R</code></a></small>
+    <div class="hidden name"><code>catalogue_jobs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Retrieves list of statistics based on variable name</p>
+    <p>Retrieves list of processing jobs (e.g. very large table retrievals)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>catalogue_statistics_by_variable</span><span class='op'>(</span>
-  <span class='va'>name</span>,
-  selection <span class='op'>=</span> <span class='cn'>NULL</span>,
-  area <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"free"</span>, <span class='st'>"user"</span>, <span class='st'>"all"</span><span class='op'>)</span>,
-  searchcriterion <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"code"</span>, <span class='st'>"content"</span><span class='op'>)</span>,
-  sortcriterion <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"code"</span>, <span class='st'>"content"</span><span class='op'>)</span>,
+    <pre class="usage"><span class='fu'>catalogue_jobs</span><span class='op'>(</span>
+  sortcriterion <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"type"</span>, <span class='st'>"status"</span>, <span class='st'>"time"</span><span class='op'>)</span>,
   pagelength <span class='op'>=</span> <span class='fl'>100</span>,
   language <span class='op'>=</span> <span class='st'>"en"</span>,
   genesis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"genesis"</span><span class='op'>)</span>
@@ -131,26 +127,6 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>name</th>
-      <td><p>Code of the variable (e.g. retrieved using <a href='catalogue_variables.html'>catalogue_variables</a>)</p></td>
-    </tr>
-    <tr>
-      <th>selection</th>
-      <td><p>String to filter for the code or content of the object(s) to
-be returned. Use of wildcard (*) possible.</p></td>
-    </tr>
-    <tr>
-      <th>area</th>
-      <td><p>Area in which the object is stored:</p><ul>
-<li><p>"free" = objects in the public catalogue</p></li>
-<li><p>"user" = objects saved to "Meine Tabellen"</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>searchcriterion</th>
-      <td><p>Does <code>selection</code> refer to the code or the content of the object(s)?</p></td>
-    </tr>
     <tr>
       <th>sortcriterion</th>
       <td><p>Should the results be sorted by the code or the content of the object(s)?</p></td>
@@ -178,12 +154,6 @@ does not have to be specified in the function call.</p></td>
 
     <p>A <code>data.frame</code> (or <code>tbl_df</code> if tibble package is installed)</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>genesis <span class='op'>=</span> <span class='st'>"destatis"</span><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'>catalogue_statistics_by_variable</span><span class='op'>(</span><span class='st'>"KREISE"</span><span class='op'>)</span></span>
-<span class='r-in'><span class='op'>}</span></span>
-</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -117,8 +117,20 @@
     <p>Tests if the login with the saved username and password was sucessful</p>
     </div>
 
-    <pre class="usage"><span class='fu'>login_check</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>login_check</span><span class='op'>(</span>genesis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"genesis"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>genesis</th>
+      <td><p>Which GENESIS database should be used?</p>
+<p>One of: "destatis", "regionalstatistik", "bildungsmonitoring", "bayern", "nrw", "sachsen-anhalt".</p>
+<p>A default value can also be set to the global option <code>genesis</code> via
+<code><a href='https://rdrr.io/r/base/options.html'>options()</a></code>, e.g. <code>options(genesis = "destatis")</code>, so that <code>genesis</code>
+does not have to be specified in the function call.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

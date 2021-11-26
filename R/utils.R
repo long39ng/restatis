@@ -8,11 +8,8 @@ discard_empty <- function(x) {
 }
 
 unlock_keyring <- function() {
-  if (!"restatis" %in% keyring::keyring_list()$keyring) {
-    keyring::keyring_create("restatis")
-  }
-  if (keyring::keyring_is_locked("restatis")) {
-    keyring::keyring_unlock("restatis")
+  if (keyring::keyring_is_locked()) {
+    keyring::keyring_unlock()
   }
 }
 

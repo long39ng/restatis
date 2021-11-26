@@ -20,7 +20,7 @@ Saves the login data for a GENESIS web service
 }
 \details{
 Login data are stored with the \link[=keyring-package]{keyring} package.
-Run \code{keyring::key_list(keyring = "restatis")} to get an overview of the stored credentials.
+Run \code{\link[keyring:key_get]{keyring::key_list()}} to get an overview of the stored credentials.
 }
 \seealso{
 \code{\link{login_check}}

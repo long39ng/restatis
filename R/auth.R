@@ -3,7 +3,7 @@
 #' Saves the login data for a GENESIS web service
 #'
 #' Login data are stored with the [keyring][keyring-package] package.
-#'   Run `keyring::key_list(keyring = "restatis")` to get an overview of the stored credentials.
+#'   Run [keyring::key_list()] to get an overview of the stored credentials.
 #'
 #' @param genesis Which GENESIS database should be used?
 #'
@@ -26,7 +26,7 @@ set_login_data <- function(genesis = getOption("genesis")) {
     stop("Entry cancelled/empty username", call. = FALSE)
   }
 
-  keyring::key_set(genesis, username, keyring = "restatis")
+  keyring::key_set(genesis, username)
 }
 
 #' Login check
@@ -54,7 +54,7 @@ retrieve_login_data <- function(genesis) {
   check_genesis(genesis)
 
   unlock_keyring()
-  available_usernames <- keyring::key_list(genesis, keyring = "restatis")$username
+  available_usernames <- keyring::key_list(genesis)$username
 
   if (length(available_usernames) == 0L) {
     stop(
@@ -69,7 +69,7 @@ retrieve_login_data <- function(genesis) {
   }
 
   username <- available_usernames[[length(available_usernames)]]
-  password <- keyring::key_get(genesis, username, keyring = "restatis")
+  password <- keyring::key_get(genesis, username)
 
   list(username = username, password = password)
 }

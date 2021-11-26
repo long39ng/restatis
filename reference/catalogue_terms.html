@@ -120,7 +120,7 @@
     <pre class="usage"><span class='fu'>catalogue_terms</span><span class='op'>(</span>
   <span class='va'>selection</span>,
   pagelength <span class='op'>=</span> <span class='fl'>100</span>,
-  language <span class='op'>=</span> <span class='st'>"en"</span>,
+  language <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"genesis_language"</span><span class='op'>)</span>,
   genesis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"genesis"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -139,7 +139,9 @@ be returned. Use of wildcard (*) possible.</p></td>
     <tr>
       <th>language</th>
       <td><p>Search terms, returned messages and data descriptions
-in German ("de") or English ("en")?</p></td>
+in German ("de") or English ("en")?</p>
+<p>A default value can also be set to the global option <code>genesis_language</code> via
+<code><a href='https://rdrr.io/r/base/options.html'>options()</a></code>, e.g. <code>options(genesis_language = "de")</code>.</p></td>
     </tr>
     <tr>
       <th>genesis</th>

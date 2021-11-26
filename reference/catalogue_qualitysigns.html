@@ -117,7 +117,10 @@
     <p>Retrieves list of quality indicators</p>
     </div>
 
-    <pre class="usage"><span class='fu'>catalogue_qualitysigns</span><span class='op'>(</span>language <span class='op'>=</span> <span class='st'>"en"</span>, genesis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"genesis"</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>catalogue_qualitysigns</span><span class='op'>(</span>
+  language <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"genesis_language"</span><span class='op'>)</span>,
+  genesis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"genesis"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -125,7 +128,9 @@
     <tr>
       <th>language</th>
       <td><p>Search terms, returned messages and data descriptions
-in German ("de") or English ("en")?</p></td>
+in German ("de") or English ("en")?</p>
+<p>A default value can also be set to the global option <code>genesis_language</code> via
+<code><a href='https://rdrr.io/r/base/options.html'>options()</a></code>, e.g. <code>options(genesis_language = "de")</code>.</p></td>
     </tr>
     <tr>
       <th>genesis</th>

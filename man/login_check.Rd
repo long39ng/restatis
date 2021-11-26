@@ -4,7 +4,16 @@
 \alias{login_check}
 \title{Login check}
 \usage{
-login_check()
+login_check(genesis = getOption("genesis"))
+}
+\arguments{
+\item{genesis}{Which GENESIS database should be used?
+
+One of: "destatis", "regionalstatistik", "bildungsmonitoring", "bayern", "nrw", "sachsen-anhalt".
+
+A default value can also be set to the global option \code{genesis} via
+\code{\link[=options]{options()}}, e.g. \code{options(genesis = "destatis")}, so that \code{genesis}
+does not have to be specified in the function call.}
 }
 \description{
 Tests if the login with the saved username and password was sucessful

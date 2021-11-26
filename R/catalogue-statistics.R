@@ -1,4 +1,4 @@
-#' Statistics catalogue
+#' Statistic catalogue
 #'
 #' Retrieves list of statistics according to selection
 #'
@@ -8,13 +8,15 @@
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' catalogue_statistics("124*")
 #' }
 catalogue_statistics <- function(selection,
                                  searchcriterion = c("code", "content"),
                                  sortcriterion = c("code", "content"),
                                  pagelength = 100,
-                                 language = "en") {
+                                 language = "en",
+                                 genesis = getOption("genesis")) {
   searchcriterion <- match.arg(searchcriterion)
   sortcriterion <- match.arg(sortcriterion)
   do.call(catalogue_, c(as.list(environment()), method = "statistics"))
@@ -30,13 +32,15 @@ catalogue_statistics <- function(selection,
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' catalogue_tables_by_statistic("12411")
 #' }
 catalogue_tables_by_statistic <- function(name,
                                           selection = NULL,
                                           area = c("free", "user", "all"),
                                           pagelength = 100,
-                                          language = "en") {
+                                          language = "en",
+                                          genesis = getOption("genesis")) {
   area <- match.arg(area)
   do.call(catalogue_, c(as.list(environment()), method = "tables2statistic"))
 }
@@ -53,6 +57,7 @@ catalogue_tables_by_statistic <- function(name,
 #'
 #' @examples
 #' \dontrun{
+#' options(genesis = "destatis")
 #' catalogue_variables_by_statistic("12411")
 #' }
 catalogue_variables_by_statistic <- function(name,
@@ -61,7 +66,8 @@ catalogue_variables_by_statistic <- function(name,
                                              searchcriterion = c("code", "content"),
                                              sortcriterion = c("code", "content"),
                                              pagelength = 100,
-                                             language = "en") {
+                                             language = "en",
+                                             genesis = getOption("genesis")) {
   area <- match.arg(area)
   searchcriterion <- match.arg(searchcriterion)
   sortcriterion <- match.arg(sortcriterion)

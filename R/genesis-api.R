@@ -1,9 +1,5 @@
-ua <- httr::user_agent("https://github.com/long39ng/restatis")
-
-base_url <- "https://www-genesis.destatis.de/genesisWS/rest/2020/"
-
-genesis_api <- function(path, query = NULL) {
-  resp <- genesis_api_raw(path, query)
+genesis_api <- function(path, query = NULL, genesis) {
+  resp <- genesis_api_raw(path, query, genesis)
 
   parsed <- tryCatch({ genesis_csv(resp) }, error = function(e) NULL) %||%
     genesis_json(resp)
@@ -16,8 +12,32 @@ genesis_api <- function(path, query = NULL) {
   )
 }
 
-genesis_api_raw <- function(path, query = NULL) {
-  url <- paste0(base_url, path)
+dbs <- c(
+  "destatis",
+  "regionalstatistik",
+  "bildungsmonitoring",
+  "bayern",
+  "nrw",
+  "sachsen-anhalt"
+)
+
+ua <- httr::user_agent("https://github.com/long39ng/restatis")
+
+base_url <- function(genesis) {
+  switch(
+    genesis,
+    destatis = "https://www-genesis.destatis.de/genesisWS/rest/2020/",
+    regionalstatistik = "https://www.regionalstatistik.de/genesisws/rest/2020/",
+    bildungsmonitoring = "https://www.bildungsmonitoring.de/bildungws/rest/2020/",
+    bayern = "https://www.statistikdaten.bayern.de/genesisWS/rest/2020/",
+    nrw = "https://www.landesdatenbank.nrw.de/ldbnrwws/rest/2020/",
+    `sachsen-anhalt` = "https://genesis.sachsen-anhalt.de/webservice/rest/2020/",
+    stop("genesis must be one of: \"", paste0(dbs, collapse = "\", \""), "\".")
+  )
+}
+
+genesis_api_raw <- function(path, query = NULL, genesis) {
+  url <- paste0(base_url(genesis), path)
 
   httr::RETRY("GET", url, ua, query = discard_empty(query))
 }
@@ -53,18 +73,12 @@ genesis_csv <- function(resp) {
 
   readr::read_delim(
     httr::content(resp, "text", encoding = "UTF-8"),
-    delim = ";",
-    locale = readr::locale(
-      decimal_mark = ",",
-      grouping_mark = "."
-    ),
-    col_types = list(Zeit = readr::col_character()),
     show_col_types = FALSE
   )
 }
 
-hello_genesis <- function() {
-  make_genesis_list(genesis_api("helloworld/whoami"))
+hello_genesis <- function(genesis = getOption("genesis")) {
+  make_genesis_list(genesis_api("helloworld/whoami", genesis = genesis))
 }
 
 #' @export

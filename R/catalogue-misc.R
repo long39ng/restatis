@@ -7,7 +7,7 @@
 #' @export
 catalogue_jobs <- function(sortcriterion = c("type", "status", "time"),
                            pagelength = 100,
-                           language = "en",
+                           language = getOption("genesis_language"),
                            genesis = getOption("genesis")) {
   sortcriterion <- match.arg(sortcriterion)
   do.call(catalogue_, c(as.list(environment()), method = "jobs"))
@@ -33,7 +33,7 @@ catalogue_jobs <- function(sortcriterion = c("type", "status", "time"),
 catalogue_modifieddata <- function(selection = NULL,
                                    date = "01.01.1970",
                                    pagelength = 100,
-                                   language = "en",
+                                   language = getOption("genesis_language"),
                                    genesis = getOption("genesis")) {
   do.call(catalogue_, c(as.list(environment()), method = "modifieddata"))
 }
@@ -45,7 +45,7 @@ catalogue_modifieddata <- function(selection = NULL,
 #' @inherit catalogue_variables params return
 #'
 #' @export
-catalogue_qualitysigns <- function(language = "en",
+catalogue_qualitysigns <- function(language = getOption("genesis_language"),
                                    genesis = getOption("genesis")) {
   do.call(catalogue_, c(as.list(environment()), method = "qualitysigns"))
 }
@@ -69,7 +69,7 @@ catalogue_qualitysigns <- function(language = "en",
 catalogue_tables <- function(selection,
                              area = c("free", "user", "all"),
                              pagelength = 100,
-                             language = "en",
+                             language = getOption("genesis_language"),
                              genesis = getOption("genesis")) {
   area <- match.arg(area)
   do.call(catalogue_, c(as.list(environment()), method = "tables"))
@@ -90,7 +90,7 @@ catalogue_tables <- function(selection,
 #' }
 catalogue_terms <- function(selection,
                             pagelength = 100,
-                            language = "en",
+                            language = getOption("genesis_language"),
                             genesis = getOption("genesis")) {
   do.call(catalogue_, c(as.list(environment()), method = "terms"))
 }
@@ -112,7 +112,7 @@ catalogue_values <- function(selection,
                              searchcriterion = c("code", "content"),
                              sortcriterion = c("code", "content"),
                              pagelength = 100,
-                             language = "en",
+                             language = getOption("genesis_language"),
                              genesis = getOption("genesis")) {
   searchcriterion <- match.arg(searchcriterion)
   sortcriterion <- match.arg(sortcriterion)

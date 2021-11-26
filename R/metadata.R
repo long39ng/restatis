@@ -18,7 +18,7 @@
 #' }
 metadata_statistic <- function(name,
                                area = c("free", "user", "all"),
-                               language = "en",
+                               language = getOption("genesis_language"),
                                genesis = getOption("genesis")) {
   metadata_("statistic", name, match.arg(area), language, genesis)
 }
@@ -28,7 +28,7 @@ metadata_statistic <- function(name,
 #' @export
 metadata_table <- function(name,
                            area = c("free", "user", "all"),
-                           language = "en",
+                           language = getOption("genesis_language"),
                            genesis = getOption("genesis")) {
   metadata_("table", name, match.arg(area), language, genesis)
 }
@@ -38,7 +38,7 @@ metadata_table <- function(name,
 #' @export
 metadata_value <- function(name,
                            area = c("free", "user", "all"),
-                           language = "en",
+                           language = getOption("genesis_language"),
                            genesis = getOption("genesis")) {
   metadata_("value", name, match.arg(area), language, genesis)
 }
@@ -48,7 +48,7 @@ metadata_value <- function(name,
 #' @export
 metadata_variable <- function(name,
                               area = c("free", "user", "all"),
-                              language = "en",
+                              language = getOption("genesis_language"),
                               genesis = getOption("genesis")) {
   metadata_("variable", name, match.arg(area), language, genesis)
 }

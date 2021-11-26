@@ -44,7 +44,7 @@ get_table <- function(name,
                       regionalkey = NULL,
                       job = NULL,
                       stand = NULL,
-                      language = "en",
+                      language = getOption("genesis_language"),
                       genesis = getOption("genesis")) {
   check_str_len1(name)
   area <- match.arg(area)
@@ -63,7 +63,7 @@ get_table <- function(name,
 get_table_from_job <- function(name,
                                area = c("free", "user", "all"),
                                compress = FALSE,
-                               language = "en",
+                               language = getOption("genesis_language"),
                                genesis) {
   do.call(get_data_, c(as.list(environment()), method = "resultfile"))
 }
@@ -79,7 +79,7 @@ get_data_ <- function(method,
                       regionalkey = NULL,
                       job = NULL,
                       stand = NULL,
-                      language = "en",
+                      language = getOption("genesis_language"),
                       genesis) {
   check_year(startyear)
   check_year(endyear)
@@ -116,5 +116,5 @@ get_data_ <- function(method,
     resp$content <- data.frame()
   }
 
-  invisible(make_genesis_tbl(resp))
+  make_genesis_tbl(resp)
 }

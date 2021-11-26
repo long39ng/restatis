@@ -25,7 +25,7 @@ catalogue_variables <- function(selection,
                                 searchcriterion = c("code", "content"),
                                 sortcriterion = c("code", "content"),
                                 pagelength = 100,
-                                language = "en",
+                                language = getOption("genesis_language"),
                                 genesis = getOption("genesis")) {
   area <- match.arg(area)
   searchcriterion <- match.arg(searchcriterion)
@@ -54,7 +54,7 @@ catalogue_statistics_by_variable <- function(name,
                                              searchcriterion = c("code", "content"),
                                              sortcriterion = c("code", "content"),
                                              pagelength = 100,
-                                             language = "en",
+                                             language = getOption("genesis_language"),
                                              genesis = getOption("genesis")) {
   area <- match.arg(area)
   searchcriterion <- match.arg(searchcriterion)
@@ -79,7 +79,7 @@ catalogue_tables_by_variable <- function(name,
                                          selection = NULL,
                                          area = c("free", "user", "all"),
                                          pagelength = 100,
-                                         language = "en",
+                                         language = getOption("genesis_language"),
                                          genesis = getOption("genesis")) {
   area <- match.arg(area)
   do.call(catalogue_, c(as.list(environment()), method = "tables2variable"))
@@ -104,7 +104,7 @@ catalogue_values_by_variable <- function(name,
                                          searchcriterion = c("code", "content"),
                                          sortcriterion = c("code", "content"),
                                          pagelength = 100,
-                                         language = "en",
+                                         language = getOption("genesis_language"),
                                          genesis = getOption("genesis")) {
   area <- match.arg(area)
   searchcriterion <- match.arg(searchcriterion)

@@ -15,7 +15,7 @@ catalogue_statistics <- function(selection,
                                  searchcriterion = c("code", "content"),
                                  sortcriterion = c("code", "content"),
                                  pagelength = 100,
-                                 language = "en",
+                                 language = getOption("genesis_language"),
                                  genesis = getOption("genesis")) {
   searchcriterion <- match.arg(searchcriterion)
   sortcriterion <- match.arg(sortcriterion)
@@ -39,7 +39,7 @@ catalogue_tables_by_statistic <- function(name,
                                           selection = NULL,
                                           area = c("free", "user", "all"),
                                           pagelength = 100,
-                                          language = "en",
+                                          language = getOption("genesis_language"),
                                           genesis = getOption("genesis")) {
   area <- match.arg(area)
   do.call(catalogue_, c(as.list(environment()), method = "tables2statistic"))
@@ -66,7 +66,7 @@ catalogue_variables_by_statistic <- function(name,
                                              searchcriterion = c("code", "content"),
                                              sortcriterion = c("code", "content"),
                                              pagelength = 100,
-                                             language = "en",
+                                             language = getOption("genesis_language"),
                                              genesis = getOption("genesis")) {
   area <- match.arg(area)
   searchcriterion <- match.arg(searchcriterion)

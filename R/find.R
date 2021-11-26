@@ -8,6 +8,9 @@
 #' @param language Search terms, returned messages and data descriptions
 #'   in German ("de") or English ("en")?
 #'
+#'   A default value can also be set to the global option `genesis_language` via
+#'   [options()], e.g. `options(genesis_language = "de")`.
+#'
 #' @inheritParams set_login_data
 #'
 #' @seealso catalogue_terms
@@ -27,7 +30,7 @@
 #' }
 search_tables <- function(term,
                           pagelength = 100,
-                          language = "en",
+                          language = getOption("genesis_language"),
                           genesis = getOption("genesis")) {
   search_(category = "tables", term, pagelength, language, genesis)
 }
@@ -37,7 +40,7 @@ search_tables <- function(term,
 #' @export
 search_statistics <- function(term,
                               pagelength = 100,
-                              language = "en",
+                              language = getOption("genesis_language"),
                               genesis = getOption("genesis")) {
   search_(category = "statistics", term, pagelength, language, genesis)
 }
@@ -47,7 +50,7 @@ search_statistics <- function(term,
 #' @export
 search_variables <- function(term,
                              pagelength = 100,
-                             language = "en",
+                             language = getOption("genesis_language"),
                              genesis = getOption("genesis")) {
   search_(category = "variables", term, pagelength, language, genesis)
 }

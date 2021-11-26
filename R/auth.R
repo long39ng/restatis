@@ -44,7 +44,7 @@ login_check <- function(genesis = getOption("genesis")) {
   query <- list(
     username = login_data$username,
     password = login_data$password,
-    language = "en"
+    language = getOption("genesis_language")
   )
 
   make_genesis_list(genesis_api("helloworld/logincheck", query, genesis))

@@ -7,7 +7,7 @@
 catalogue_terms(
   selection,
   pagelength = 100,
-  language = "en",
+  language = getOption("genesis_language"),
   genesis = getOption("genesis")
 )
 }
@@ -18,7 +18,10 @@ be returned. Use of wildcard (*) possible.}
 \item{pagelength}{Maximum number of results delivered}
 
 \item{language}{Search terms, returned messages and data descriptions
-in German ("de") or English ("en")?}
+in German ("de") or English ("en")?
+
+A default value can also be set to the global option \code{genesis_language} via
+\code{\link[=options]{options()}}, e.g. \code{options(genesis_language = "de")}.}
 
 \item{genesis}{Which GENESIS database should be used?
 

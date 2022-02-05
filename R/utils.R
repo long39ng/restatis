@@ -34,18 +34,14 @@ check_genesis <- function(genesis) {
 }
 
 check_num_len1 <- function(x) {
-  nm <- deparse(substitute(x))
-
   if (!(is.null(x) || (is.numeric(x) && length(x) == 1L))) {
-    stop(nm, " must be a number or NULL", call. = FALSE)
+    stop(deparse(substitute(x)), " must be a number or NULL", call. = FALSE)
   }
 }
 
 check_str_len1 <- function(x) {
-  nm <- deparse(substitute(x))
-
   if (!(is.null(x) || (is.character(x) && length(x) == 1L))) {
-    stop(nm, " must be a single string or NULL", call. = FALSE)
+    stop(deparse(substitute(x)), " must be a single string or NULL", call. = FALSE)
   }
 }
 

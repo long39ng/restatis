@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://long39ng.github.io/restatis/404.html</loc>
+  </url>
+  <url>
+    <loc>https://long39ng.github.io/restatis/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://long39ng.github.io/restatis/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://long39ng.github.io/restatis/authors.html</loc>
+  </url>
+  <url>
     <loc>https://long39ng.github.io/restatis/index.html</loc>
   </url>
   <url>
@@ -44,6 +56,9 @@
   </url>
   <url>
     <loc>https://long39ng.github.io/restatis/reference/get_table.html</loc>
+  </url>
+  <url>
+    <loc>https://long39ng.github.io/restatis/reference/index.html</loc>
   </url>
   <url>
     <loc>https://long39ng.github.io/restatis/reference/login_check.html</loc>
